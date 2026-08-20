@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DEPPX Hub — Developing Every Person's Potential. A self-help, community, and creative hub.">
+<meta name="theme-color" content="#1f0f38">
+<title>DEPPX Hub — Developing Every Person's Potential</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<style>
+:root {
+  --void: #0d0518;
+  --dusk: #1f0f38;
+  --horizon: #4a1f6b;
+  --gold: #b48cff;
+  --sage: #8fd6c4;
+  --mist: #d9d3e8;
+  --paper: #f3f0f8;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--void);
+  color: var(--mist);
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-bottom: 80px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--horizon); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Typography */
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 600; }
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-bottom: 0.75rem; }
+p { margin-bottom: 1rem; }
+a { color: var(--gold); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--sage); }
+
+/* Layout */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 4rem 0; }
+section:nth-child(even) { background: rgba(31, 15, 56, 0.4); }
+
+/* Cards */
+.card {
+  background: linear-gradient(145deg, rgba(31,15,56,0.9), rgba(13,5,24,0.95));
+  border: 1px solid rgba(180,140,255,0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(180,140,255,0.1);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-family: var(--font-body); font-weight: 500;
+  cursor: pointer; border: none; transition: all 0.2s;
+  font-size: 0.95rem;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  color: var(--void);
+}
+.btn-primary:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+}
+.btn-secondary:hover { background: rgba(180,140,255,0.1); }
+.btn-sage {
+  background: var(--sage); color: var(--void);
+}
+.btn-sage:hover { filter: brightness(1.1); }
+
+/* Forms */
+input, textarea, select {
+  width: 100%; padding: 0.75rem 1rem;
+  background: rgba(13,5,24,0.8);
+  border: 1px solid rgba(180,140,255,0.2);
+  border-radius: 10px;
+  color: var(--mist);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(180,140,255,0.1);
+}
+textarea { min-height: 120px; resize: vertical; }
+label {
+  display: block; margin-bottom: 0.4rem;
+  font-size: 0.85rem; color: var(--gold); font-weight: 500;
+}
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+
+/* Nav */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,5,24,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(180,140,255,0.1);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.75rem;
+}
+.logo {
+  font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700;
+  color: var(--gold); display: flex; align-items: center; gap: 0.5rem;
+}
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--void); font-weight: 700; font-size: 1.1rem;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+}
+.nav-links a, .nav-links button {
+  padding: 0.4rem 0.8rem; border-radius: 8px;
+  font-size: 0.85rem; color: var(--mist);
+  background: none; border: none; cursor: pointer;
+  transition: background 0.2s;
+}
+.nav-links a:hover, .nav-links button:hover {
+  background: rgba(180,140,255,0.1); color: var(--gold);
+}
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute; top: 100%; right: 0;
+  background: var(--dusk); border: 1px solid rgba(180,140,255,0.2);
+  border-radius: 12px; padding: 0.5rem;
+  min-width: 200px;
+  display: none; flex-direction: column; gap: 0.25rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu {
+  display: flex;
+}
+.dropdown-menu a {
+  padding: 0.5rem 0.75rem; border-radius: 8px;
+  font-size: 0.85rem; white-space: nowrap;
+}
+.dropdown-menu a:hover { background: rgba(180,140,255,0.1); }
+
+/* Google Translate override */
+#google_translate_element { display: inline-block; }
+.goog-te-gadget { font-size: 0 !important; }
+.goog-te-gadget span { display: none !important; }
+.goog-te-gadget .goog-te-combo {
+  background: var(--dusk) !important;
+  color: var(--mist) !important;
+  border: 1px solid rgba(180,140,255,0.2) !important;
+  border-radius: 8px !important;
+  padding: 0.3rem 0.6rem !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.85rem !important;
+}
+.goog-te-banner-frame { display: none !important; }
+body { top: 0 !important; }
+
+/* Hero */
+.hero {
+  min-height: 80vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 3rem 1.5rem;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(74,31,107,0.3) 0%, transparent 60%);
+}
+.hero-content { position: relative; z-index: 2; }
+.hero-photo-wrap {
+  position: relative; width: 220px; height: 220px;
+  margin: 0 auto 2rem;
+}
+.aperture-ring {
+  position: absolute; inset: -15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  background: conic-gradient(from 0deg, var(--gold), var(--sage), var(--horizon), var(--gold));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px));
+  animation: spin 20s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.hero-photo {
+  width: 100%; height: 100%; border-radius: 50%;
+  object-fit: cover; border: 3px solid var(--dusk);
+}
+.hero h1 { margin-bottom: 1rem; background: linear-gradient(135deg, var(--gold), var(--sage)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-sub { font-size: 1.1rem; color: var(--mist); opacity: 0.85; max-width: 500px; margin: 0 auto 2rem; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* Tone toggle */
+.tone-toggle {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem; border-radius: 20px;
+  background: rgba(180,140,255,0.1); border: 1px solid rgba(180,140,255,0.2);
+  cursor: pointer; font-size: 0.85rem; color: var(--gold);
+  transition: all 0.2s;
+}
+.tone-toggle:hover { background: rgba(180,140,255,0.2); }
+.tone-toggle.active { background: var(--sage); color: var(--void); border-color: var(--sage); }
+
+/* Section headers */
+.section-header {
+  text-align: center; margin-bottom: 2.5rem;
+}
+.section-header h2 {
+  background: linear-gradient(135deg, var(--gold), var(--sage));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.section-header p { color: var(--mist); opacity: 0.7; max-width: 600px; margin: 0 auto; }
+
+/* Pathway cards */
+.pathway-card {
+  text-align: center; padding: 2rem 1.5rem;
+}
+.pathway-icon {
+  width: 64px; height: 64px; border-radius: 16px;
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem; font-size: 1.8rem;
+}
+
+/* Quiz */
+.quiz-container { max-width: 700px; margin: 0 auto; }
+.quiz-question {
+  background: rgba(31,15,56,0.6); border-radius: 16px;
+  padding: 1.5rem; margin-bottom: 1rem;
+  border: 1px solid rgba(180,140,255,0.1);
+}
+.quiz-question h4 { color: var(--gold); margin-bottom: 1rem; }
+.quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+.quiz-option {
+  padding: 0.75rem 1rem; border-radius: 10px;
+  background: rgba(13,5,24,0.6); border: 1px solid rgba(180,140,255,0.1);
+  cursor: pointer; transition: all 0.2s; text-align: left;
+  color: var(--mist); font-family: var(--font-body); font-size: 0.95rem;
+}
+.quiz-option:hover { border-color: var(--gold); background: rgba(180,140,255,0.05); }
+.quiz-option.selected { border-color: var(--sage); background: rgba(143,214,196,0.1); }
+.quiz-progress {
+  height: 6px; background: rgba(180,140,255,0.1); border-radius: 3px;
+  margin-bottom: 1.5rem; overflow: hidden;
+}
+.quiz-progress-bar {
+  height: 100%; background: linear-gradient(90deg, var(--horizon), var(--gold));
+  border-radius: 3px; transition: width 0.3s;
+}
+.quiz-result-bar {
+  height: 24px; background: rgba(180,140,255,0.1); border-radius: 12px;
+  overflow: hidden; margin-bottom: 0.5rem;
+}
+.quiz-result-fill {
+  height: 100%; border-radius: 12px;
+  background: linear-gradient(90deg, var(--horizon), var(--gold));
+  transition: width 1s ease-out;
+}
+
+/* Wheel of Life */
+.wheel-container { text-align: center; }
+.wheel-svg { max-width: 400px; margin: 0 auto 2rem; }
+.wheel-sliders { max-width: 500px; margin: 0 auto; }
+.wheel-slider-row {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;
+}
+.wheel-slider-row label { min-width: 100px; margin: 0; font-size: 0.9rem; }
+.wheel-slider-row input[type="range"] {
+  flex: 1; -webkit-appearance: none; height: 6px;
+  background: rgba(180,140,255,0.15); border-radius: 3px; border: none;
+}
+.wheel-slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 18px; height: 18px;
+  background: var(--gold); border-radius: 50%; cursor: pointer;
+}
+.wheel-value { min-width: 30px; text-align: right; font-weight: 600; color: var(--sage); }
+
+/* Flash Points */
+.flash-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+.flash-card {
+  background: linear-gradient(145deg, rgba(31,15,56,0.95), rgba(13,5,24,0.98));
+  border: 1px solid rgba(180,140,255,0.2);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
+}
+.flash-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(180,140,255,0.03) 0%, transparent 70%);
+  animation: flashPulse 4s ease-in-out infinite;
+}
+@keyframes flashPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+.flash-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+.flash-badge.philosophy { background: rgba(180,140,255,0.15); color: #b48cff; }
+.flash-badge.scripture { background: rgba(143,214,196,0.15); color: #8fd6c4; }
+.flash-badge.jesus { background: rgba(255,200,100,0.15); color: #ffc864; }
+.flash-badge.hahn { background: rgba(200,150,255,0.15); color: #c896ff; }
+.flash-badge.gaia { background: rgba(100,220,150,0.15); color: #64dc96; }
+.flash-badge.dispenza { background: rgba(100,180,255,0.15); color: #64b4ff; }
+.flash-quote {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-style: italic;
+  color: var(--paper);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+.flash-quote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: -1.5rem;
+  left: -1rem;
+  font-family: var(--font-serif);
+}
+.flash-source {
+  font-size: 0.9rem;
+  color: var(--sage);
+  position: relative;
+  z-index: 2;
+}
+.flash-source a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(180,140,255,0.3);
+}
+.flash-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.flash-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(180,140,255,0.1);
+  border: 1px solid rgba(180,140,255,0.2);
+  color: var(--gold);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flash-btn:hover {
+  background: var(--gold);
+  color: var(--void);
+}
+.flash-progress {
+  width: 120px;
+  height: 4px;
+  background: rgba(180,140,255,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.flash-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--horizon), var(--gold));
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+.flash-timer {
+  font-size: 0.75rem;
+  color: var(--mist);
+  opacity: 0.5;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.flash-categories {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.flash-cat-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  background: rgba(31,15,56,0.6);
+  border: 1px solid rgba(180,140,255,0.15);
+  color: var(--mist);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.flash-cat-btn:hover, .flash-cat-btn.active {
+  background: rgba(180,140,255,0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+
+/* Fables */
+.fable-card { margin-bottom: 1.5rem; }
+.fable-origin {
+  display: inline-block; padding: 0.25rem 0.6rem;
+  background: rgba(143,214,196,0.15); color: var(--sage);
+  border-radius: 6px; font-size: 0.75rem; font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+.fable-moral {
+  font-style: italic; color: var(--gold);
+  border-left: 3px solid var(--gold); padding-left: 1rem;
+  margin: 1rem 0;
+}
+.fable-modern {
+  background: rgba(143,214,196,0.08); border-radius: 10px;
+  padding: 1rem; margin-top: 1rem;
+}
+.fable-modern strong { color: var(--sage); }
+.fable-take {
+  background: rgba(180,140,255,0.08); border-radius: 10px;
+  padding: 1rem; margin-top: 1rem; border: 1px dashed rgba(180,140,255,0.2);
+}
+.fable-take strong { color: var(--gold); }
+
+/* Community items */
+.community-item {
+  background: rgba(31,15,56,0.5); border-radius: 12px;
+  padding: 1rem; margin-bottom: 1rem;
+  border: 1px solid rgba(180,140,255,0.1);
+}
+.community-item-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.5rem;
+}
+.community-item-name { font-weight: 600; color: var(--gold); }
+.community-item-date { font-size: 0.75rem; color: var(--mist); opacity: 0.5; }
+
+/* News ticker */
+.news-ticker {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(13,5,24,0.95); backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(180,140,255,0.15);
+  padding: 0.6rem 0; z-index: 90;
+  overflow: hidden; white-space: nowrap;
+}
+.news-ticker-inner {
+  display: inline-block;
+  animation: ticker 60s linear infinite;
+  padding-left: 100%;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+.news-ticker-item {
+  display: inline-block; margin-right: 3rem;
+  font-size: 0.85rem; color: var(--mist);
+}
+.news-ticker-item strong { color: var(--gold); }
+
+/* QR code */
+.qr-wrap { text-align: center; }
+.qr-wrap img { border-radius: 12px; border: 2px solid rgba(180,140,255,0.2); }
+
+/* Social icons */
+.social-grid { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.social-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  background: rgba(31,15,56,0.8); border: 1px solid rgba(180,140,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; transition: all 0.2s;
+}
+.social-icon:hover { background: var(--horizon); transform: translateY(-3px); }
+
+/* Calculator */
+.calc-display {
+  background: rgba(13,5,24,0.9); border: 1px solid rgba(180,140,255,0.2);
+  border-radius: 12px; padding: 1rem; text-align: right;
+  font-size: 1.5rem; font-family: var(--font-body); color: var(--gold);
+  margin-bottom: 0.75rem; min-height: 56px; word-break: break-all;
+}
+.calc-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
+}
+.calc-btn {
+  padding: 0.75rem; border-radius: 10px; border: none;
+  background: rgba(31,15,56,0.8); color: var(--mist);
+  font-family: var(--font-body); font-size: 1.1rem; cursor: pointer;
+  transition: all 0.15s;
+}
+.calc-btn:hover { background: rgba(180,140,255,0.15); }
+.calc-btn.op { color: var(--gold); }
+.calc-btn.eq { background: var(--sage); color: var(--void); }
+.calc-btn.eq:hover { filter: brightness(1.1); }
+
+/* Journal */
+.journal-prompt { font-style: italic; color: var(--sage); margin-bottom: 1rem; }
+.journal-entries { margin-top: 1.5rem; }
+.journal-entry {
+  background: rgba(31,15,56,0.5); border-radius: 12px;
+  padding: 1rem; margin-bottom: 0.75rem;
+  border-left: 3px solid var(--gold);
+}
+.journal-entry-date { font-size: 0.75rem; color: var(--gold); margin-bottom: 0.25rem; }
+
+/* Video embed */
+.video-embed {
+  position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+  border-radius: 16px; background: var(--dusk);
+}
+.video-embed iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 16px;
+}
+
+/* Footer */
+footer {
+  background: var(--dusk); padding: 3rem 1.5rem 7rem;
+  text-align: center; border-top: 1px solid rgba(180,140,255,0.1);
+}
+footer p { color: var(--mist); opacity: 0.5; font-size: 0.85rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-inner { justify-content: center; }
+  .hero-photo-wrap { width: 160px; height: 160px; }
+  
+  section { padding: 2.5rem 0; }
+}
+
+/* Utility */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.hidden { display: none !important; }
+.fade-in { animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Swarm Overlay */
+.swarm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,5,24,0.95);
+  backdrop-filter: blur(20px);
+  z-index: 200;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.swarm-overlay.active {
+  display: flex;
+}
+.swarm-canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.swarm-hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  z-index: 10;
+  background: rgba(13,5,24,0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(180,140,255,0.2);
+  backdrop-filter: blur(8px);
+}
+.swarm-hud div {
+  margin-bottom: 0.25rem;
+}
+.swarm-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(180,140,255,0.15);
+  border: 1px solid rgba(180,140,255,0.3);
+  color: var(--gold);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.swarm-close:hover {
+  background: var(--gold);
+  color: var(--void);
+}
+.swarm-instructions {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--mist);
+  font-size: 0.8rem;
+  opacity: 0.6;
+  z-index: 10;
+  text-align: center;
+  background: rgba(13,5,24,0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  pointer-events: none;
+}
+.swarm-summon-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  z-index: 70;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  border: none;
+  color: var(--void);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(180,140,255,0.3);
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Swarm Guide */
+.swarm-guide {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  width: 280px;
+  background: rgba(13,5,24,0.9);
+  border: 1px solid rgba(180,140,255,0.2);
+  border-radius: 16px;
+  padding: 1.25rem;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  font-size: 0.85rem;
+  color: var(--mist);
+  line-height: 1.5;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.swarm-guide h4 {
+  color: var(--gold);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+.swarm-guide ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+.swarm-guide li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(180,140,255,0.08);
+}
+.swarm-guide li:last-child {
+  border-bottom: none;
+}
+.swarm-guide strong {
+  color: var(--sage);
+}
+.swarm-guide .guide-icon {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+  margin-right: 0.3rem;
+}
+.swarm-ritual {
+  background: rgba(143,214,196,0.08);
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  border-left: 3px solid var(--sage);
+}
+.swarm-ritual strong {
+  color: var(--sage);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.swarm-toggle-guide {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  padding: 0.4rem 0.8rem;
+  background: rgba(180,140,255,0.15);
+  border: 1px solid rgba(180,140,255,0.3);
+  border-radius: 20px;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.swarm-toggle-guide:hover {
+  background: var(--gold);
+  color: var(--void);
+}
+
+.swarm-summon-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(180,140,255,0.5);
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">D</span>
+      DEPPX
+    </a>
+    <div class="nav-links">
+      <a href="#start">Start</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#wheel">Wheel</a>
+      <a href="#vault">Vault</a>
+      <a href="#wisdom">Wisdom</a>
+      <a href="#fables">Fables</a>
+      <a href="#community">Community</a>
+      <a href="#journal">Journal</a>
+      <div class="dropdown">
+        <button>AI Tools ▾</button>
+        <div class="dropdown-menu">
+          <a href="https://grok.com" target="_blank" rel="noopener">Grok</a>
+          <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener">Claude</a>
+          <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a>
+          <a href="https://perplexity.ai" target="_blank" rel="noopener">Perplexity</a>
+          <a href="https://chat.deepseek.com" target="_blank" rel="noopener">DeepSeek</a>
+          <a href="https://qwenlm.ai" target="_blank" rel="noopener">Qwen</a>
+          <a href="https://kimi.moonshot.cn" target="_blank" rel="noopener">Kimi</a>
+          <a href="https://doubao.com" target="_blank" rel="noopener">Doubao</a>
+        </div>
+      </div>
+      <button class="btn btn-secondary" style="padding:0.4rem 0.8rem;font-size:0.85rem;" onclick="shareSite()">🔗 Share</button>
+      <div id="google_translate_element"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-photo-wrap">
+      <div class="aperture-ring"></div>
+      <img src="profile.jpg" alt="Jaye-jaye" class="hero-photo" onerror="this.src='https://via.placeholder.com/220/1f0f38/b48cff?text=J'">
+    </div>
+    <h1>Developing Every Person's Potential</h1>
+    <p class="hero-sub">Welcome to DEPPX — a space to discover your strengths, grow with wisdom, and build community. Your potential is the variable. Let's solve for X.</p>
+    <div class="hero-actions">
+      <a href="#start" class="btn btn-primary">Begin Your Journey</a>
+      <button id="toneBtn" class="tone-toggle" onclick="toggleTone()">🎵 Ambient Tone</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== START HERE ===================== -->
+<section id="start">
+  <div class="container">
+    <div class="section-header">
+      <h2>Start Here</h2>
+      <p>Choose your pathway into the DEPPX ecosystem.</p>
+    </div>
+    <div class="grid-4">
+      <div class="card pathway-card">
+        <div class="pathway-icon">🧭</div>
+        <h3>Take the Quiz</h3>
+        <p>Discover your potential across 5 key domains with our self-assessment.</p>
+        <a href="#quiz" class="btn btn-secondary mt-2">Start Quiz</a>
+      </div>
+      <div class="card pathway-card">
+        <div class="pathway-icon">📚</div>
+        <h3>Framework Vault</h3>
+        <p>Explore time-tested mental models: Eisenhower, Ikigai, Kaizen, SMART.</p>
+        <a href="#vault" class="btn btn-secondary mt-2">Open Vault</a>
+      </div>
+      <div class="card pathway-card">
+        <div class="pathway-icon">🦊</div>
+        <h3>Fables & Kids</h3>
+        <p>Wisdom stories from around the world, retold for all ages.</p>
+        <a href="#fables" class="btn btn-secondary mt-2">Read Fables</a>
+      </div>
+      <div class="card pathway-card">
+        <div class="pathway-icon">🛠️</div>
+        <h3>Tools</h3>
+        <p>Calculator, journal, song requests, and more practical helpers.</p>
+        <a href="#tools" class="btn btn-secondary mt-2">See Tools</a>
+      </div>
+      <div class="card pathway-card" style="border-color:rgba(0,240,255,0.3);background:linear-gradient(145deg,rgba(0,240,255,0.05),rgba(180,140,255,0.05));">
+        <div class="pathway-icon" style="background:linear-gradient(135deg,#00f0ff,#b48cff);">🤖</div>
+        <h3>Business Swarm</h3>
+        <p>5 AI agents collaborate to turn your idea into income. New window.</p>
+        <button class="btn btn-primary mt-2" onclick="openBusinessPortal()">Launch Portal</button>
+      </div>
+      <div class="card pathway-card" style="border-color:rgba(139,92,246,0.3);background:linear-gradient(145deg,rgba(139,92,246,0.05),rgba(59,130,246,0.05));">
+        <div class="pathway-icon" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6);">📊</div>
+        <h3>DeppX Accounting</h3>
+        <p>Free double-entry bookkeeping with inventory, payroll, POS & reports.</p>
+        <button class="btn btn-primary mt-2" onclick="openAccounting()">Open Books</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section id="quiz">
+  <div class="container">
+    <div class="section-header">
+      <h2>Discover Your Potential</h2>
+      <p>A 10-question self-assessment across 5 domains. No right answers — just honest reflection.</p>
+    </div>
+    <div class="quiz-container">
+      <div class="quiz-progress"><div class="quiz-progress-bar" id="quizProgressBar" style="width:0%"></div></div>
+      <div id="quizQuestions"></div>
+      <div id="quizResults" class="hidden">
+        <h3 style="text-align:center;margin-bottom:1.5rem;">Your Potential Profile</h3>
+        <div id="resultBars"></div>
+        <div id="resultRoute" style="margin-top:1.5rem;padding:1rem;background:rgba(143,214,196,0.08);border-radius:12px;"></div>
+        <div style="text-align:center;margin-top:1.5rem;">
+          <button class="btn btn-primary" onclick="shareResult()">📤 Share My Result</button>
+          <button class="btn btn-secondary" onclick="resetQuiz()" style="margin-left:0.5rem;">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHEEL OF LIFE ===================== -->
+<section id="wheel">
+  <div class="container">
+    <div class="section-header">
+      <h2>Wheel of Life</h2>
+      <p>Rate each domain honestly. The shape that emerges shows where you're thriving — and where there's room to grow.</p>
+    </div>
+    <div class="wheel-container">
+      <svg class="wheel-svg" viewBox="0 0 300 300" id="wheelSvg">
+        <defs>
+          <radialGradient id="wheelGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(180,140,255,0.3)"/>
+            <stop offset="100%" stop-color="rgba(180,140,255,0.05)"/>
+          </radialGradient>
+        </defs>
+        <!-- Background grid -->
+        <circle cx="150" cy="150" r="40" fill="none" stroke="rgba(180,140,255,0.1)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="80" fill="none" stroke="rgba(180,140,255,0.1)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="120" fill="none" stroke="rgba(180,140,255,0.1)" stroke-width="1"/>
+        <!-- Axis lines -->
+        <g id="wheelAxes"></g>
+        <!-- Data polygon -->
+        <polygon id="wheelPolygon" points="" fill="url(#wheelGrad)" stroke="#b48cff" stroke-width="2"/>
+        <!-- Labels -->
+        <g id="wheelLabels"></g>
+      </svg>
+      <div class="wheel-sliders" id="wheelSliders"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FRAMEWORK VAULT ===================== -->
+<section id="vault">
+  <div class="container">
+    <div class="section-header">
+      <h2>Framework Vault</h2>
+      <p>Time-tested mental models for decision-making, purpose, and growth.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>🔲 Eisenhower Matrix</h3>
+        <p>Sort tasks by urgency and importance into four quadrants: <strong>Do</strong> (urgent + important), <strong>Schedule</strong> (important, not urgent), <strong>Delegate</strong> (urgent, not important), and <strong>Delete</strong> (neither).</p>
+        <p style="font-size:0.9rem;opacity:0.7;margin-top:0.75rem;">The insight: most people spend their lives in "urgent" mode and neglect what truly matters. Flip the ratio.</p>
+      </div>
+      <div class="card">
+        <h3>🎯 Ikigai</h3>
+        <p>Your "reason for being" lives at the intersection of four circles: what you <strong>love</strong>, what you're <strong>good at</strong>, what the world <strong>needs</strong>, and what you can be <strong>paid for</strong>.</p>
+        <p style="font-size:0.9rem;opacity:0.7;margin-top:0.75rem;">You don't need all four to start. Even two overlapping circles create meaning. Begin where you are.</p>
+      </div>
+      <div class="card">
+        <h3>🌱 Kaizen</h3>
+        <p>Continuous improvement through small, consistent steps. The Japanese philosophy that revolutionized manufacturing — and applies to personal growth.</p>
+        <p style="font-size:0.9rem;opacity:0.7;margin-top:0.75rem;">1% better every day compounds to 37x improvement in a year. The key is showing up, not being perfect.</p>
+      </div>
+      <div class="card">
+        <h3>📋 SMART Goals</h3>
+        <p>Make goals <strong>Specific</strong>, <strong>Measurable</strong>, <strong>Achievable</strong>, <strong>Relevant</strong>, and <strong>Time-bound</strong>. Vague wishes become actionable plans.</p>
+        <p style="font-size:0.9rem;opacity:0.7;margin-top:0.75rem;">"Get fit" becomes "Run 5km in under 30 minutes by December 1." Precision creates momentum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="wisdom">
+  <div class="container">
+    <div class="section-header">
+      <h2>Wisdom Flash Points</h2>
+      <p>One insight every minute. Philosophy, Scripture, the words of Jesus, modern teachers, and nature.</p>
+    </div>
+
+    <div class="flash-categories">
+      <button class="flash-cat-btn active" onclick="filterFlash('all')">All</button>
+      <button class="flash-cat-btn" onclick="filterFlash('philosophy')">🧠 Philosophy</button>
+      <button class="flash-cat-btn" onclick="filterFlash('scripture')">✝️ Scripture</button>
+      <button class="flash-cat-btn" onclick="filterFlash('jesus')">✨ Jesus Speaks</button>
+      <button class="flash-cat-btn" onclick="filterFlash('hahn')">📖 Scott Hahn</button>
+      <button class="flash-cat-btn" onclick="filterFlash('gaia')">🌿 Gaia Sayings</button>
+      <button class="flash-cat-btn" onclick="filterFlash('dispenza')">🧘 Joe Dispenza</button>
+    </div>
+
+    <div class="flash-container">
+      <div class="flash-card" id="flashCard">
+        <div class="flash-badge philosophy" id="flashBadge">Philosophy</div>
+        <div class="flash-quote" id="flashQuote">"The unexamined life is not worth living."</div>
+        <div class="flash-source" id="flashSource">— Socrates</div>
+      </div>
+      <div class="flash-controls">
+        <button class="flash-btn" onclick="prevFlash()">◀</button>
+        <div class="flash-progress"><div class="flash-progress-bar" id="flashProgress"></div></div>
+        <button class="flash-btn" onclick="nextFlash()">▶</button>
+      </div>
+      <div class="flash-timer" id="flashTimer">Next in 60s</div>
+    </div>
+  </div>
+</section>
+
+<script>
+const flashQuotes = [
+  // Philosophy
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "The unexamined life is not worth living.", source: "— Socrates" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", source: "— Aristotle" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "He who has a why to live can bear almost any how.", source: "— Friedrich Nietzsche" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "The only true wisdom is in knowing you know nothing.", source: "— Socrates" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "Happiness depends upon ourselves.", source: "— Aristotle" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "Act only according to maxims you can will as universal law.", source: "— Immanuel Kant" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "Man is condemned to be free.", source: "— Jean-Paul Sartre" },
+  { cat: "philosophy", badge: "🧠 Philosophy", text: "The life of man is solitary, poor, nasty, brutish, and short — unless we build something better together.", source: "— Thomas Hobbes (paraphrased)" },
+
+  // Scripture (Douay-Rheims)
+  { cat: "scripture", badge: "✝️ Scripture", text: "I can do all things in him who strengtheneth me.", source: "— Philippians 4:13 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "The Lord is my light and my salvation: whom shall I fear?", source: "— Psalm 26:1 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "Be not solicitous therefore, saying: What shall we eat, or what shall we drink, or wherewith shall we be clothed? For your Father knoweth what is needful for you.", source: "— Matthew 6:31-32 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "And we know that to them that love God, all things work together unto good.", source: "— Romans 8:28 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "Charity is patient, is kind: charity envieth not, dealeth not perversely; is not puffed up.", source: "— 1 Corinthians 13:4 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "For I know the thoughts that I think towards you, saith the Lord, thoughts of peace, and not of affliction, to give you an end and patience.", source: "— Jeremiah 29:11 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "Blessed are the poor in spirit: for theirs is the kingdom of heaven.", source: "— Matthew 5:3 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "Be thou faithful until death: and I will give thee the crown of life.", source: "— Revelation 2:10 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "He that loveth not, knoweth not God: for God is charity.", source: "— 1 John 4:8 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "All scripture, inspired of God, is profitable to teach, to reprove, to correct, to instruct in justice.", source: "— 2 Timothy 3:16 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "In the beginning was the Word, and the Word was with God, and the Word was God.", source: "— John 1:1 (DR)" },
+  { cat: "scripture", badge: "✝️ Scripture", text: "My God hath sent his angel, and hath shut the mouths of the lions, and they have not hurt me.", source: "— Daniel 14:36 (DR, deuterocanonical)" },
+
+  // Jesus Speaks — actual words of Jesus from the Gospels (Douay-Rheims)
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I am the way, and the truth, and the life. No man cometh to the Father, but by me.", source: "— John 14:6 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Come to me, all you that labour, and are burdened, and I will refresh you. Take up my yoke upon you, and learn of me, because I am meek, and humble of heart: and you shall find rest to your souls. For my yoke is sweet and my burden light.", source: "— Matthew 11:28-30 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Ask, and it shall be given you: seek, and you shall find: knock, and it shall be opened to you.", source: "— Matthew 7:7 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Peace I leave with you, my peace I give unto you: not as the world giveth, do I give unto you. Let not your heart be troubled, nor let it be afraid.", source: "— John 14:27 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I am the light of the world: he that followeth me, walketh not in darkness, but shall have the light of life.", source: "— John 8:12 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I am the bread of life: he that cometh to me shall not hunger: and he that believeth in me shall never thirst.", source: "— John 6:35 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "A new commandment I give unto you: That you love one another, as I have loved you, that you also love one another.", source: "— John 13:34 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I am the vine; you the branches: he that abideth in me, and I in him, the same beareth much fruit: for without me you can do nothing.", source: "— John 15:5 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Blessed are the poor in spirit: for theirs is the kingdom of heaven. Blessed are the meek: for they shall possess the land. Blessed are they that mourn: for they shall be comforted.", source: "— Matthew 5:3-5 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "You are the salt of the earth. But if the salt lose its savour, wherewith shall it be salted? You are the light of the world. A city seated on a mountain cannot be hid.", source: "— Matthew 5:13-14 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Let your light so shine before men, that they may see your good works, and glorify your Father who is in heaven.", source: "— Matthew 5:16 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Behold, I stand at the gate, and knock. If any man shall hear my voice, and open to me the door, I will come in to him, and will sup with him, and he with me.", source: "— Revelation 3:20 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Fear not, little flock, for it hath pleased your Father to give you a kingdom.", source: "— Luke 12:32 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Render therefore to Caesar the things that are Caesar's; and to God, the things that are God's.", source: "— Matthew 22:21 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Whatsoever you shall ask the Father in my name, that will I do: that the Father may be glorified in the Son.", source: "— John 14:13 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I have not come to call the just, but sinners to penance.", source: "— Luke 5:32 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "For God so loved the world, as to give his only begotten Son; that whosoever believeth in him, may not perish, but may have life everlasting.", source: "— John 3:16 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Amen, amen I say to thee, unless a man be born again of water and the Holy Ghost, he cannot enter into the kingdom of God.", source: "— John 3:5 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "God is a spirit: and they that adore him, must adore him in spirit and in truth.", source: "— John 4:24 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "He that eateth my flesh, and drinketh my blood, hath everlasting life: and I will raise him up in the last day.", source: "— John 6:55 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "And if I go, and prepare a place for you, I will come again, and will take you to myself; that where I am, you also may be.", source: "— John 14:3 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I will not leave you orphans, I will come to you.", source: "— John 14:18 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "I am the resurrection and the life: he that believeth in me, although he be dead, shall live.", source: "— John 11:25 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Suffer the little children, and forbid them not to come to me: for the kingdom of heaven is for such.", source: "— Matthew 19:14 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "For what shall it profit a man, if he gain the whole world, and suffer the loss of his soul?", source: "— Mark 8:36 (DR)" },
+  { cat: "jesus", badge: "✨ Jesus Speaks", text: "Be you therefore perfect, as also your heavenly Father is perfect.", source: "— Matthew 5:48 (DR)" },
+
+  // Scott Hahn (paraphrased)
+  { cat: "hahn", badge: "📖 Scott Hahn", text: "The Bible isn't a collection of disconnected stories — it's one grand narrative of a family, a covenant, and a kingdom that finds its fulfillment in Christ.", source: '— Inspired by <a href="https://stpaulcenter.com" target="_blank" rel="noopener">Scott Hahn</a>' },
+  { cat: "hahn", badge: "📖 Scott Hahn", text: "The Eucharist isn't merely symbolic — it's the real presence of the New Covenant, fulfilling what the Passover and manna prefigured in the Old Testament.", source: '— Inspired by <a href="https://stpaulcenter.com" target="_blank" rel="noopener">Scott Hahn</a>' },
+  { cat: "hahn", badge: "📖 Scott Hahn", text: "Mary isn't an obstacle to knowing Jesus — she's the shortcut. She always leads us deeper into her Son.", source: '— Inspired by <a href="https://stpaulcenter.com" target="_blank" rel="noopener">Scott Hahn</a>' },
+  { cat: "hahn", badge: "📖 Scott Hahn", text: "The Church isn't a human institution that happens to talk about God — it's a divine institution established by God to bring humanity home.", source: '— Inspired by <a href="https://stpaulcenter.com" target="_blank" rel="noopener">Scott Hahn</a>' },
+  { cat: "hahn", badge: "📖 Scott Hahn", text: "Every Mass is a participation in the heavenly liturgy described in Revelation — earth and heaven meet at the altar.", source: '— Inspired by <a href="https://stpaulcenter.com" target="_blank" rel="noopener">Scott Hahn</a>' },
+
+  // Gaia Sayings
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "The oak does not rush to become tall. It simply grows, ring by ring, storm by storm.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "Rivers do not force their way through stone. They find the path of least resistance — and in time, carve canyons.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "The seed buried deepest rises highest. Darkness is not death — it is preparation.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "Wolves travel in packs not from weakness, but because the hunt is better shared.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "The mountain does not compete with the sky. It simply stands, and in standing, touches clouds.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "Autumn leaves do not fall in shame. They let go because the tree has stored what it needs.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "The tide returns not because it is summoned, but because it never truly left. What belongs to you will find its way back.", source: "— DEPPX Original" },
+  { cat: "gaia", badge: "🌿 Gaia Sayings", text: "Coral builds reefs one microscopic deposit at a time. Grandeur is the sum of tiny faithfulness.", source: "— DEPPX Original" },
+
+  // Joe Dispenza (paraphrased)
+  { cat: "dispenza", badge: "🧘 Joe Dispenza", text: "Your personality creates your personal reality. Change your thoughts, emotions, and behaviors — and you change your life.", source: '— Inspired by <a href="https://drjoedispenza.com" target="_blank" rel="noopener">Dr. Joe Dispenza</a>' },
+  { cat: "dispenza", badge: "🧘 Joe Dispenza", text: "The best way to predict your future is to create it — not from the familiar past, but from an imagined, emotionally-felt future.", source: '— Inspired by <a href="https://drjoedispenza.com" target="_blank" rel="noopener">Dr. Joe Dispenza</a>' },
+  { cat: "dispenza", badge: "🧘 Joe Dispenza", text: "Meditation isn't about relaxing — it's about becoming conscious of your unconscious programs and rewriting them.", source: '— Inspired by <a href="https://drjoedispenza.com" target="_blank" rel="noopener">Dr. Joe Dispenza</a>' },
+  { cat: "dispenza", badge: "🧘 Joe Dispenza", text: "When you combine a clear intention with an elevated emotion, you signal new genes in new ways. The body follows the mind.", source: '— Inspired by <a href="https://drjoedispenza.com" target="_blank" rel="noopener">Dr. Joe Dispenza</a>' },
+  { cat: "dispenza", badge: "🧘 Joe Dispenza", text: "Breaking the habit of being yourself requires more than positive thinking — it requires breaking the chemical addiction to familiar emotions.", source: '— Inspired by <a href="https://drjoedispenza.com" target="_blank" rel="noopener">Dr. Joe Dispenza</a>' }
+];
+
+let flashIndex = 0;
+let flashFilter = 'all';
+let flashInterval = null;
+let flashProgressInterval = null;
+const FLASH_DURATION = 60000; // 60 seconds
+
+function getFilteredQuotes() {
+  if (flashFilter === 'all') return flashQuotes;
+  return flashQuotes.filter(q => q.cat === flashFilter);
+}
+
+function renderFlash() {
+  const quotes = getFilteredQuotes();
+  if (!quotes.length) return;
+  const q = quotes[flashIndex % quotes.length];
+  const card = document.getElementById('flashCard');
+  const badge = document.getElementById('flashBadge');
+  const quote = document.getElementById('flashQuote');
+  const source = document.getElementById('flashSource');
+
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(10px)';
+
+  setTimeout(() => {
+    badge.className = 'flash-badge ' + q.cat;
+    badge.textContent = q.badge;
+    quote.textContent = q.text;
+    source.innerHTML = q.source;
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, 300);
+}
+
+function nextFlash() {
+  const quotes = getFilteredQuotes();
+  flashIndex = (flashIndex + 1) % quotes.length;
+  renderFlash();
+  resetFlashTimer();
+}
+
+function prevFlash() {
+  const quotes = getFilteredQuotes();
+  flashIndex = (flashIndex - 1 + quotes.length) % quotes.length;
+  renderFlash();
+  resetFlashTimer();
+}
+
+function filterFlash(cat) {
+  flashFilter = cat;
+  flashIndex = 0;
+  document.querySelectorAll('.flash-cat-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  renderFlash();
+  resetFlashTimer();
+}
+
+function resetFlashTimer() {
+  if (flashInterval) clearInterval(flashInterval);
+  if (flashProgressInterval) clearInterval(flashProgressInterval);
+  startFlashTimer();
+}
+
+function startFlashTimer() {
+  let elapsed = 0;
+  const progressBar = document.getElementById('flashProgress');
+  const timerText = document.getElementById('flashTimer');
+
+  flashProgressInterval = setInterval(() => {
+    elapsed += 100;
+    const pct = (elapsed / FLASH_DURATION) * 100;
+    progressBar.style.width = pct + '%';
+    const remaining = Math.ceil((FLASH_DURATION - elapsed) / 1000);
+    timerText.textContent = 'Next in ' + remaining + 's';
+  }, 100);
+
+  flashInterval = setInterval(() => {
+    nextFlash();
+  }, FLASH_DURATION);
+}
+
+renderFlash();
+startFlashTimer();
+</script>
+
+<!-- ===================== FABLES ===================== -->
+<section id="fables">
+  <div class="container">
+    <div class="section-header">
+      <h2>Fables From Around the World</h2>
+      <p>Ancient wisdom stories with modern rephrases for young readers — plus the founder's personal take.</p>
+    </div>
+    <div id="fablesContainer"></div>
+  </div>
+</section>
+
+<!-- ===================== RESEARCH TOOLS ===================== -->
+<section id="research">
+  <div class="container">
+    <div class="section-header">
+      <h2>Research & Fact-Check</h2>
+      <p>Verify before you share. These tools help you find truth in a noisy world.</p>
+    </div>
+    <div class="grid-4">
+      <a href="https://perplexity.ai" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🔍</div>
+        <h3>Perplexity</h3>
+        <p style="font-size:0.85rem;">AI-powered search with cited sources.</p>
+      </a>
+      <a href="https://grok.com" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🧠</div>
+        <h3>Grok</h3>
+        <p style="font-size:0.85rem;">Real-time AI with X integration.</p>
+      </a>
+      <a href="https://snopes.com" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">✅</div>
+        <h3>Snopes</h3>
+        <p style="font-size:0.85rem;">Urban legends and rumor debunking.</p>
+      </a>
+      <a href="https://factcheck.org" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">📰</div>
+        <h3>FactCheck.org</h3>
+        <p style="font-size:0.85rem;">Nonpartisan political fact-checking.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREATIVE ZONE ===================== -->
+<section id="creative">
+  <div class="container">
+    <div class="section-header">
+      <h2>Creative Zone</h2>
+      <p>Honest links to real AI video tools. No fake generators here.</p>
+    </div>
+    <div class="grid-3">
+      <a href="https://sora.com" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🎬</div>
+        <h3>Sora</h3>
+        <p style="font-size:0.85rem;">OpenAI's text-to-video model.</p>
+      </a>
+      <a href="https://runwayml.com" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🎨</div>
+        <h3>Runway</h3>
+        <p style="font-size:0.85rem;">Creative AI video suite.</p>
+      </a>
+      <a href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">💭</div>
+        <h3>Luma Dream Machine</h3>
+        <p style="font-size:0.85rem;">Fast, high-quality video generation.</p>
+      </a>
+      <a href="https://pika.art" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🦊</div>
+        <h3>Pika</h3>
+        <p style="font-size:0.85rem;">AI video creation platform.</p>
+      </a>
+      <a href="https://x.com/i/grok" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🤖</div>
+        <h3>Grok Imagine</h3>
+        <p style="font-size:0.85rem;">X's AI image generation.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DAILY CATHOLIC READING ===================== -->
+<section id="catholic">
+  <div class="container">
+    <div class="section-header">
+      <h2>Daily Catholic Reading</h2>
+      <p>Stay connected to the liturgical calendar.</p>
+    </div>
+    <div class="grid-2">
+      <a href="https://bible.usccb.org/daily-bible-reading" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">📖</div>
+        <h3>USCCB Daily Readings</h3>
+        <p style="font-size:0.9rem;">The official daily Mass readings from the United States Conference of Catholic Bishops.</p>
+      </a>
+      <a href="https://stpaulcenter.com/letters-from-home/" target="_blank" rel="noopener" class="card" style="text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem;">✉️</div>
+        <h3>Letters From Home</h3>
+        <p style="font-size:0.9rem;">A podcast by Scott Hahn reflecting on the Sunday readings.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMMUNITY GUIDELINES ===================== -->
+<section id="guidelines">
+  <div class="container">
+    <div class="section-header">
+      <h2>Community Guidelines</h2>
+    </div>
+    <div class="card" style="max-width:700px;margin:0 auto;text-align:center;">
+      <p style="font-size:1.1rem;margin-bottom:1rem;">DEPPX is a space for growth, not grievance.</p>
+      <div class="grid-2" style="text-align:left;margin-top:1.5rem;">
+        <div>
+          <h4 style="color:var(--sage);margin-bottom:0.5rem;">✅ Encouraged</h4>
+          <ul style="list-style:none;padding:0;font-size:0.9rem;">
+            <li>🌱 Sharing growth stories</li>
+            <li>💡 Offering constructive feedback</li>
+            <li>🙏 Respectful dialogue</li>
+            <li>📚 Recommending resources</li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:var(--gold);margin-bottom:0.5rem;">❌ Not Allowed</h4>
+          <ul style="list-style:none;padding:0;font-size:0.9rem;">
+            <li>🚫 Profanity / slurs</li>
+            <li>🚫 Trolling / harassment</li>
+            <li>🚫 Spam / self-promotion</li>
+            <li>🚫 Misinformation</li>
+          </ul>
+        </div>
+      </div>
+      <p style="margin-top:1.5rem;font-size:0.85rem;opacity:0.7;">All community submissions are human-moderated before going live. We reserve the right to remove content that violates these guidelines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAN GALLERY ===================== -->
+<section id="fan-gallery">
+  <div class="container">
+    <div class="section-header">
+      <h2>Fan Gallery</h2>
+      <p>Art, messages, and creations from the DEPPX community.</p>
+    </div>
+    <div id="fanGalleryItems" style="margin-bottom:2rem;">
+      <p class="text-center" style="opacity:0.5;">No submissions yet. Be the first!</p>
+    </div>
+    <div class="card" style="max-width:600px;margin:0 auto;">
+      <h3>Submit to Fan Gallery</h3>
+      <form action="https://formsubmit.co/jayejaye@deppx.life" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_subject" value="DEPPX Fan Gallery Submission">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_cc" value="backup@deppx.life">
+        <label>Your Name</label>
+        <input type="text" name="name" required placeholder="Your name or alias">
+        <label style="margin-top:0.75rem;">Message / Caption</label>
+        <textarea name="message" required placeholder="What does DEPPX mean to you?"></textarea>
+        <label style="margin-top:0.75rem;">Image URL (optional)</label>
+        <input type="url" name="image_url" placeholder="https://example.com/your-image.jpg">
+        <button type="submit" class="btn btn-primary mt-2">Submit for Review</button>
+        <p style="font-size:0.8rem;opacity:0.5;margin-top:0.5rem;">Submissions are manually reviewed before appearing here.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VIDEO HIGHLIGHTS ===================== -->
+<section id="videos">
+  <div class="container">
+    <div class="section-header">
+      <h2>Video Highlights</h2>
+      <p>Featured moments from the DEPPX journey.</p>
+    </div>
+    <div id="videoContainer">
+      <div class="video-embed" style="margin-bottom:1.5rem;">
+        <iframe src="https://www.tiktok.com/embed/v1/placeholder" allowfullscreen></iframe>
+      </div>
+    </div>
+    <p class="text-center" style="opacity:0.5;font-size:0.85rem;">More videos coming soon. Follow on TikTok for the latest.</p>
+  </div>
+</section>
+
+<!-- ===================== FRIENDS' LINK HUB ===================== -->
+<section id="friends">
+  <div class="container">
+    <div class="section-header">
+      <h2>Friends' Link Hub</h2>
+      <p>Community mini-Linktree cards. Discover what the DEPPX family is building.</p>
+    </div>
+    <div id="friendsLinks" style="margin-bottom:2rem;">
+      <p class="text-center" style="opacity:0.5;">No links yet. Be the first to share!</p>
+    </div>
+    <div class="card" style="max-width:600px;margin:0 auto;">
+      <h3>Add Your Link</h3>
+      <form action="https://formsubmit.co/jayejaye@deppx.life" method="POST">
+        <input type="hidden" name="_subject" value="DEPPX Friends Link Submission">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_cc" value="backup@deppx.life">
+        <label>Your Name</label>
+        <input type="text" name="name" required>
+        <label style="margin-top:0.75rem;">Link Title</label>
+        <input type="text" name="title" required placeholder="My Creative Portfolio">
+        <label style="margin-top:0.75rem;">URL</label>
+        <input type="url" name="url" required placeholder="https://your-site.com">
+        <label style="margin-top:0.75rem;">Short Description</label>
+        <input type="text" name="description" placeholder="What you're building">
+        <button type="submit" class="btn btn-primary mt-2">Submit for Review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMMUNITY WALL ===================== -->
+<section id="community">
+  <div class="container">
+    <div class="section-header">
+      <h2>Community Wall</h2>
+      <p>A lightweight forum for thoughts, questions, and encouragement.</p>
+    </div>
+    <div id="communityPosts" style="margin-bottom:2rem;">
+      <p class="text-center" style="opacity:0.5;">No posts yet. Start the conversation!</p>
+    </div>
+    <div class="card" style="max-width:600px;margin:0 auto;">
+      <h3>Post to the Wall</h3>
+      <form action="https://formsubmit.co/jayejaye@deppx.life" method="POST">
+        <input type="hidden" name="_subject" value="DEPPX Community Wall Post">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_cc" value="backup@deppx.life">
+        <label>Your Name</label>
+        <input type="text" name="name" required>
+        <label style="margin-top:0.75rem;">Topic</label>
+        <input type="text" name="topic" placeholder="e.g., Goal Setting, Faith, Creativity">
+        <label style="margin-top:0.75rem;">Your Message</label>
+        <textarea name="message" required placeholder="Share your thoughts..."></textarea>
+        <button type="submit" class="btn btn-primary mt-2">Post for Review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEEDBACK ===================== -->
+<section id="feedback">
+  <div class="container">
+    <div class="section-header">
+      <h2>Feedback</h2>
+      <p>Help us improve DEPPX. Your voice matters.</p>
+    </div>
+    <div class="card" style="max-width:600px;margin:0 auto;">
+      <form action="https://formsubmit.co/jayejaye@deppx.life" method="POST">
+        <input type="hidden" name="_subject" value="DEPPX Feedback">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_cc" value="backup@deppx.life">
+        <label>Your Name</label>
+        <input type="text" name="name" required>
+        <label style="margin-top:0.75rem;">Email</label>
+        <input type="email" name="email" required>
+        <label style="margin-top:0.75rem;">Feedback</label>
+        <div style="position:relative;">
+          <textarea name="message" id="feedbackText" required placeholder="What's on your mind?"></textarea>
+          <button type="button" onclick="startVoiceInput('feedbackText')" style="position:absolute;bottom:8px;right:8px;background:var(--dusk);border:1px solid rgba(180,140,255,0.2);border-radius:8px;padding:0.4rem 0.6rem;cursor:pointer;color:var(--gold);font-size:0.8rem;">🎤 Speak</button>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Send Feedback</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SUPPORT / DONATE ===================== -->
+<section id="support">
+  <div class="container">
+    <div class="section-header">
+      <h2>Support DEPPX</h2>
+      <p>If this hub has helped you, consider supporting its growth.</p>
+    </div>
+    <div class="text-center">
+      <a href="https://paypal.me/deppxhub" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:1.1rem;padding:1rem 2rem;">💜 Donate via PayPal</a>
+      <p style="margin-top:1rem;font-size:0.85rem;opacity:0.6;">Every contribution helps keep DEPPX free and growing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section id="newsletter">
+  <div class="container">
+    <div class="section-header">
+      <h2>Newsletter</h2>
+      <p>Weekly wisdom, new fables, and community highlights — delivered to your inbox.</p>
+    </div>
+    <div class="card" style="max-width:500px;margin:0 auto;text-align:center;">
+      <form action="https://formsubmit.co/jayejaye@deppx.life" method="POST">
+        <input type="hidden" name="_subject" value="DEPPX Newsletter Signup">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_cc" value="backup@deppx.life">
+        <input type="email" name="email" required placeholder="your@email.com" style="margin-bottom:1rem;">
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      <p style="font-size:0.8rem;opacity:0.5;margin-top:0.75rem;">No spam. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DAILY REFLECTION JOURNAL ===================== -->
+<section id="journal">
+  <div class="container">
+    <div class="section-header">
+      <h2>Daily Reflection Journal</h2>
+      <p>Private per-browser journaling with rotating prompts. Stored locally on your device.</p>
+    </div>
+    <div class="card" style="max-width:700px;margin:0 auto;">
+      <div class="journal-prompt" id="journalPrompt"></div>
+      <textarea id="journalEntry" placeholder="Write your reflection here..."></textarea>
+      <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+        <button class="btn btn-primary" onclick="saveJournalEntry()">Save Entry</button>
+        <button class="btn btn-secondary" onclick="newJournalPrompt()">New Prompt</button>
+      </div>
+      <div class="journal-entries" id="journalEntries">
+        <h4 style="color:var(--gold);margin-bottom:0.75rem;">Your Entries</h4>
+        <div id="journalList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUICK CALCULATOR ===================== -->
+<section id="tools">
+  <div class="container">
+    <div class="section-header">
+      <h2>Quick Calculator</h2>
+      <p>Basic arithmetic when you need it.</p>
+    </div>
+    <div class="card" style="max-width:320px;margin:0 auto;">
+      <div class="calc-display" id="calcDisplay">0</div>
+      <div class="calc-grid">
+        <button class="calc-btn" onclick="calcClear()">C</button>
+        <button class="calc-btn" onclick="calcAppend('/')">÷</button>
+        <button class="calc-btn" onclick="calcAppend('*')">×</button>
+        <button class="calc-btn" onclick="calcBack()">⌫</button>
+        <button class="calc-btn" onclick="calcAppend('7')">7</button>
+        <button class="calc-btn" onclick="calcAppend('8')">8</button>
+        <button class="calc-btn" onclick="calcAppend('9')">9</button>
+        <button class="calc-btn op" onclick="calcAppend('-')">−</button>
+        <button class="calc-btn" onclick="calcAppend('4')">4</button>
+        <button class="calc-btn" onclick="calcAppend('5')">5</button>
+        <button class="calc-btn" onclick="calcAppend('6')">6</button>
+        <button class="calc-btn op" onclick="calcAppend('+')">+</button>
+        <button class="calc-btn" onclick="calcAppend('1')">1</button>
+        <button class="calc-btn" onclick="calcAppend('2')">2</button>
+        <button class="calc-btn" onclick="calcAppend('3')">3</button>
+        <button class="calc-btn eq" onclick="calcEqual()" style="grid-row:span 2;">=</button>
+        <button class="calc-btn" onclick="calcAppend('0')" style="grid-column:span 2;">0</button>
+        <button class="calc-btn" onclick="calcAppend('.')">.</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REQUEST A SONG ===================== -->
+<section id="song">
+  <div class="container">
+    <div class="section-header">
+      <h2>Request a Song</h2>
+      <p>Search YouTube Music for your next anthem.</p>
+    </div>
+    <div class="card" style="max-width:500px;margin:0 auto;text-align:center;">
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+        <input type="text" id="songInput" placeholder="Song name or artist..." style="flex:1;margin:0;">
+        <button class="btn btn-sage" onclick="searchSong()">Search</button>
+      </div>
+      <button class="btn btn-secondary" onclick="startVoiceInput('songInput')" style="width:100%;">🎤 Voice Search</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL LINKS ===================== -->
+<section id="social">
+  <div class="container">
+    <div class="section-header">
+      <h2>Connect</h2>
+      <p>Find DEPPX across the web.</p>
+    </div>
+    <div class="social-grid">
+      <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon" title="TikTok">🎵</a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" title="Instagram">📷</a>
+      <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon" title="Facebook">👍</a>
+      <a href="https://x.com" target="_blank" rel="noopener" class="social-icon" title="X">𝕏</a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon" title="YouTube">▶️</a>
+      <a href="https://spotify.com" target="_blank" rel="noopener" class="social-icon" title="Spotify">🎧</a>
+      <a href="https://snapchat.com" target="_blank" rel="noopener" class="social-icon" title="Snapchat">👻</a>
+      <a href="https://threads.net" target="_blank" rel="noopener" class="social-icon" title="Threads">🧵</a>
+      <a href="https://pinterest.com" target="_blank" rel="noopener" class="social-icon" title="Pinterest">📌</a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-icon" title="LinkedIn">💼</a>
+      <a href="https://telegram.org" target="_blank" rel="noopener" class="social-icon" title="Telegram">✈️</a>
+      <a href="https://signal.org" target="_blank" rel="noopener" class="social-icon" title="Signal">🔒</a>
+      <a href="https://zangi.com" target="_blank" rel="noopener" class="social-icon" title="Zangi">💬</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QR CODE ===================== -->
+<section id="qr">
+  <div class="container">
+    <div class="section-header">
+      <h2>Share This Page</h2>
+      <p>Scan to open DEPPX on any device.</p>
+    </div>
+    <div class="qr-wrap">
+      <img id="qrCode" src="" alt="QR Code" width="200" height="200" style="background:var(--paper);padding:8px;">
+      <p style="margin-top:0.75rem;font-size:0.85rem;opacity:0.6;" id="qrUrl"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+
+/* X Trending Ticker */
+.x-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #0d0518 0%, #1f0f38 50%, #0d0518 100%);
+  border-top: 1px solid rgba(180,140,255,0.2);
+  z-index: 90;
+  overflow: hidden;
+  padding: 0.5rem 0;
+  box-shadow: 0 -4px 20px rgba(180,140,255,0.1);
+}
+.x-ticker-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: xScroll 25s linear infinite;
+  width: max-content;
+}
+@keyframes xScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.x-ticker:hover .x-ticker-track {
+  animation-play-state: paused;
+}
+.x-tweet {
+  background: rgba(13,5,24,0.9);
+  border: 1px solid rgba(180,140,255,0.15);
+  border-radius: 12px;
+  padding: 0.6rem 1rem;
+  min-width: 280px;
+  max-width: 320px;
+  flex-shrink: 0;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.x-tweet:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.x-tweet-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.x-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--void);
+  font-weight: 700;
+}
+.x-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--paper);
+}
+.x-handle {
+  font-size: 0.75rem;
+  color: var(--mist);
+  opacity: 0.5;
+}
+.x-tweet-text {
+  font-size: 0.8rem;
+  color: var(--mist);
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+}
+.x-tweet-text strong {
+  color: var(--gold);
+}
+.x-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.7rem;
+  color: var(--mist);
+  opacity: 0.5;
+}
+.x-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(180,140,255,0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+<footer>
+  <div class="container">
+    <p style="font-size:1.2rem;margin-bottom:0.5rem;">DEPPX</p>
+    <p>Developing Every Person's Potential</p>
+    <p style="margin-top:1rem;">© 2026 Jaye-jaye. All rights reserved.</p>
+    <p style="margin-top:0.5rem;">Made with 💜 for the journey.</p>
+  </div>
+</footer>
+
+<!-- ===================== NEWS TICKER ===================== -->
+
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// ===== Google Translate =====
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'en,tl,ceb,tpi,es,fr,de,it,pt,zh-CN,ja,ko,ar,hi',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+
+// ===== Service Worker =====
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(reg => console.log('SW registered'))
+    .catch(err => console.log('SW error', err));
+}
+
+// ===== Share =====
+async function shareSite() {
+  const shareData = {
+    title: 'DEPPX Hub',
+    text: 'Developing Every Person's Potential — discover your strengths at DEPPX.',
+    url: window.location.href
+  };
+  if (navigator.share) {
+    try { await navigator.share(shareData); } catch(e) {}
+  } else {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    } catch(e) {
+      prompt('Copy this link:', window.location.href);
+    }
+  }
+}
+
+// ===== Web Audio Tone =====
+let audioCtx = null;
+let oscillators = [];
+let toneActive = false;
+
+function toggleTone() {
+  const btn = document.getElementById('toneBtn');
+  if (!toneActive) {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const freqs = [432, 528];
+    freqs.forEach(f => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = f;
+      gain.gain.value = 0.03;
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      oscillators.push({osc, gain});
+    });
+    toneActive = true;
+    btn.classList.add('active');
+    btn.textContent = '🔇 Stop Tone';
+  } else {
+    oscillators.forEach(o => { o.osc.stop(); o.gain.disconnect(); });
+    oscillators = [];
+    toneActive = false;
+    btn.classList.remove('active');
+    btn.textContent = '🎵 Ambient Tone';
+  }
+}
+
+// ===== Quiz =====
+const quizData = [
+  { q: "When facing a major setback, I usually...", domain: "Mindset",
+    options: ["See it as a learning opportunity", "Feel defeated but recover slowly", "Blame external circumstances", "Avoid thinking about it"],
+    scores: [3,2,1,0] },
+  { q: "My daily routine is...", domain: "Discipline",
+    options: ["Structured and consistent", "Mostly planned with some flexibility", "Spontaneous and varied", "Non-existent or chaotic"],
+    scores: [3,2,1,0] },
+  { q: "In relationships, I prioritize...", domain: "Relationships",
+    options: ["Deep, meaningful connections", "A balance of quality and quantity", "Keeping things light and fun", "Avoiding commitment"],
+    scores: [3,2,1,0] },
+  { q: "I feel clearest about my life's purpose when...", domain: "Purpose",
+    options: ["Helping others grow", "Creating something new", "Achieving personal goals", "I rarely think about purpose"],
+    scores: [3,2,1,0] },
+  { q: "My approach to physical and mental health is...", domain: "Wellbeing",
+    options: ["Holistic and proactive", "Good in some areas, lacking in others", "Reactive — I fix problems as they arise", "Neglected or deprioritized"],
+    scores: [3,2,1,0] },
+  { q: "When learning something new, I...", domain: "Mindset",
+    options: ["Embrace the challenge eagerly", "Take it step by step patiently", "Get frustrated by initial difficulty", "Avoid things I'm not already good at"],
+    scores: [3,2,1,0] },
+  { q: "I handle distractions by...", domain: "Discipline",
+    options: ["Eliminating them proactively", "Managing them with techniques", "Giving in occasionally", "Constantly losing focus"],
+    scores: [3,2,1,0] },
+  { q: "When someone close to me succeeds, I feel...", domain: "Relationships",
+    options: ["Genuinely happy for them", "Happy but slightly envious", "Indifferent", "Resentful or competitive"],
+    scores: [3,2,1,0] },
+  { q: "I make decisions based on...", domain: "Purpose",
+    options: ["Alignment with my core values", "A mix of logic and intuition", "What feels easiest right now", "What others expect of me"],
+    scores: [3,2,1,0] },
+  { q: "My energy levels throughout the day are...", domain: "Wellbeing",
+    options: ["Steady and sustainable", "High peaks with some crashes", "Unpredictable", "Consistently low"],
+    scores: [3,2,1,0] }
+];
+
+let currentQ = 0;
+let quizAnswers = [];
+
+function renderQuiz() {
+  const container = document.getElementById('quizQuestions');
+  if (currentQ >= quizData.length) { showResults(); return; }
+  const q = quizData[currentQ];
+  container.innerHTML = `
+    <div class="quiz-question fade-in">
+      <h4>Question ${currentQ + 1} of ${quizData.length} — ${q.domain}</h4>
+      <p style="margin-bottom:1rem;font-size:1.05rem;">${q.q}</p>
+      <div class="quiz-options">
+        ${q.options.map((opt, i) => `<button class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
+      </div>
+    </div>
+  `;
+  document.getElementById('quizProgressBar').style.width = ((currentQ / quizData.length) * 100) + '%';
+}
+
+function answerQuiz(idx) {
+  quizAnswers.push({ domain: quizData[currentQ].domain, score: quizData[currentQ].scores[idx] });
+  currentQ++;
+  renderQuiz();
+}
+
+function showResults() {
+  document.getElementById('quizQuestions').classList.add('hidden');
+  document.getElementById('quizResults').classList.remove('hidden');
+  document.getElementById('quizProgressBar').style.width = '100%';
+
+  const domains = {};
+  quizAnswers.forEach(a => {
+    if (!domains[a.domain]) domains[a.domain] = { total: 0, max: 0, count: 0 };
+    domains[a.domain].total += a.score;
+    domains[a.domain].max += 3;
+    domains[a.domain].count++;
+  });
+
+  let html = '';
+  let bestDomain = '';
+  let bestScore = -1;
+  for (const [d, data] of Object.entries(domains)) {
+    const pct = Math.round((data.total / data.max) * 100);
+    if (pct > bestScore) { bestScore = pct; bestDomain = d; }
+    html += `
+      <div style="margin-bottom:1rem;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem;">
+          <span>${d}</span><span>${pct}%</span>
+        </div>
+        <div class="quiz-result-bar"><div class="quiz-result-fill" style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }
+  document.getElementById('resultBars').innerHTML = html;
+
+  const routes = {
+    'Mindset': 'Check out the <a href="#wisdom">Wisdom section</a> for philosophy and mindset shifts.',
+    'Discipline': 'Explore the <a href="#vault">Framework Vault</a> — Kaizen and SMART Goals are your friends.',
+    'Relationships': 'Read the <a href="#fables">Fables</a> — stories teach empathy and connection.',
+    'Purpose': 'Reflect with the <a href="#wheel">Wheel of Life</a> and <a href="#journal">Daily Journal</a>.',
+    'Wellbeing': 'Start with the <a href="#journal">Journal</a> and ambient tone for mindful moments.'
+  };
+  document.getElementById('resultRoute').innerHTML = `<strong>Your strongest area:</strong> ${bestDomain} (${bestScore}%)<br><br>${routes[bestDomain] || 'Explore all sections to keep growing!'}`;
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  quizAnswers = [];
+  document.getElementById('quizResults').classList.add('hidden');
+  document.getElementById('quizQuestions').classList.remove('hidden');
+  renderQuiz();
+}
+
+function shareResult() {
+  const text = `I just took the DEPPX Potential Quiz! Discover your potential at ${window.location.href}`;
+  if (navigator.share) {
+    navigator.share({ title: 'My DEPPX Result', text, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(text).then(() => alert('Result copied!'));
+  }
+}
+
+renderQuiz();
+
+// ===== Wheel of Life =====
+const wheelDomains = [
+  'Career','Finance','Health','Family','Romance','Friends','Fun','Growth'
+];
+const wheelValues = wheelDomains.map(() => 5);
+
+function renderWheel() {
+  const svg = document.getElementById('wheelSvg');
+  const axes = document.getElementById('wheelAxes');
+  const labels = document.getElementById('wheelLabels');
+  const polygon = document.getElementById('wheelPolygon');
+  const sliders = document.getElementById('wheelSliders');
+
+  const cx = 150, cy = 150, maxR = 120;
+  const count = wheelDomains.length;
+  let points = '';
+
+  axes.innerHTML = '';
+  labels.innerHTML = '';
+
+  wheelDomains.forEach((domain, i) => {
+    const angle = (i * 2 * Math.PI / count) - Math.PI / 2;
+    const x = cx + maxR * Math.cos(angle);
+    const y = cy + maxR * Math.sin(angle);
+    axes.innerHTML += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(180,140,255,0.15)" stroke-width="1"/>`;
+
+    const labelR = maxR + 18;
+    const lx = cx + labelR * Math.cos(angle);
+    const ly = cy + labelR * Math.sin(angle);
+    const anchor = Math.abs(angle) < Math.PI / 2 ? 'start' : 'end';
+    labels.innerHTML += `<text x="${lx}" y="${ly}" fill="#d9d3e8" font-size="10" font-family="Space Grotesk" text-anchor="${anchor}" dominant-baseline="middle">${domain}</text>`;
+
+    const valR = (wheelValues[i] / 10) * maxR;
+    const vx = cx + valR * Math.cos(angle);
+    const vy = cy + valR * Math.sin(angle);
+    points += `${vx},${vy} `;
+  });
+
+  polygon.setAttribute('points', points);
+
+  // Sliders
+  sliders.innerHTML = wheelDomains.map((d, i) => `
+    <div class="wheel-slider-row">
+      <label>${d}</label>
+      <input type="range" min="1" max="10" value="${wheelValues[i]}" oninput="updateWheel(${i}, this.value)">
+      <span class="wheel-value" id="wheelVal-${i}">${wheelValues[i]}</span>
+    </div>
+  `).join('');
+}
+
+function updateWheel(idx, val) {
+  wheelValues[idx] = parseInt(val);
+  document.getElementById(`wheelVal-${idx}`).textContent = val;
+  renderWheel();
+}
+
+renderWheel();
+
+
+
+// ===== Fables =====
+const fables = [
+  { origin: "Aesop / Greek", title: "The Tortoise and the Hare",
+    summary: "A hare mocks a slow tortoise and challenges him to a race. Confident of victory, the hare takes a nap mid-race. The tortoise, moving steadily, crosses the finish line first.",
+    moral: "Slow and steady wins the race.",
+    modern: "You don't have to be the fastest. Showing up every day beats burning out in a sprint.",
+    take: "Consistency is the real superpower. Most people quit before the tortoise even gets tired." },
+  { origin: "Aesop / Greek", title: "The Boy Who Cried Wolf",
+    summary: "A shepherd boy repeatedly tricks villagers into thinking a wolf is attacking his flock. When a real wolf appears, no one believes him, and the sheep are lost.",
+    moral: "Liars are not believed even when they speak the truth.",
+    modern: "Your word is your currency. Spend it wisely, or one day you'll be bankrupt of trust.",
+    take: "Trust is built in drops and lost in buckets. Guard your credibility like gold." },
+  { origin: "Chinese", title: "The Old Man Lost His Horse",
+    summary: "An old man's horse runs away. Neighbors pity him, but he says 'How do you know this is bad?' The horse returns with a herd. Neighbors celebrate, but he says 'How do you know this is good?' His son breaks a leg riding one. Soldiers come to conscript youth for war — his son is spared.",
+    moral: "Fortune and misfortune are intertwined; we cannot judge events in isolation.",
+    modern: "That setback might be a setup. Don't label things 'good' or 'bad' too quickly.",
+    take: "The story I tell myself about my circumstances matters more than the circumstances themselves." },
+  { origin: "Indian / Panchatantra", title: "The Monkey and the Crocodile",
+    summary: "A crocodile befriends a monkey who lives on a tree by the river. The crocodile's wife wants to eat the monkey's heart. The crocodile invites the monkey for a ride, then reveals the plan. The monkey says he left his heart in the tree and tricks the crocodile into returning him.",
+    moral: "Presence of mind can save you from the deadliest traps.",
+    modern: "When someone shows you their true intentions, believe them — but use your wits to escape.",
+    take: "Not everyone who smiles with you is for you. Keep your eyes open and your mind sharp." },
+  { origin: "West African / Anansi", title: "Anansi and the Pot of Wisdom",
+    summary: "Anansi the spider collects all the world's wisdom in a pot to keep for himself. He tries to hide it in a tall tree, carrying it on his belly. His son advises tying it to his back instead. Anansi realizes even his child has wisdom he lacks, and in anger, drops the pot. Wisdom scatters to everyone.",
+    moral: "Wisdom is meant to be shared, not hoarded.",
+    modern: "The moment you think you know everything is the moment you stop growing.",
+    take: "Teach what you know. The best way to learn is to give it away." },
+  { origin: "Japanese", title: "The Stonecutter",
+    summary: "A stonecutter wishes to be a rich merchant, then a prince, then the sun, then a cloud, then a mountain. Finally he wishes to be a stonecutter again — for only the stonecutter can shape the mountain.",
+    moral: "True power lies in accepting who you are.",
+    modern: "The grass isn't greener. Your power is in your craft, not your title.",
+    take: "Stop chasing status. Start mastering your craft. That's where real influence lives." },
+  { origin: "Cherokee", title: "The Two Wolves",
+    summary: "An elder tells his grandson that two wolves battle inside every person: one of anger, envy, and greed, and one of peace, love, and hope. The grandson asks which wins. The elder replies: 'The one you feed.'",
+    moral: "You become what you cultivate within yourself.",
+    modern: "Your attention is food. Whatever you feed grows. Starve the negativity.",
+    take: "Every morning I choose which wolf to feed. That choice compounds into my character." },
+  { origin: "Aesop / Greek", title: "The Ant and the Grasshopper",
+    summary: "An ant works all summer storing food while a grasshopper sings and plays. Winter comes, and the grasshopper starves while the ant survives.",
+    moral: "Prepare today for the needs of tomorrow.",
+    modern: "Fun is important, but delayed gratification is what separates thriving from surviving.",
+    take: "Build your reserves — financially, mentally, relationally — before you need them." },
+  { origin: "Chinese", title: "The Foolish Old Man Removes the Mountains",
+    summary: "An old man decides to move two mountains blocking his home. He and his family dig day after day. A wise man mocks him. The old man replies: 'When I die, my sons will continue, then their sons, and so on. The mountains cannot grow.' The gods are moved and move the mountains for him.",
+    moral: "Perseverance can move mountains.",
+    modern: "Big goals seem impossible until you break them into daily actions. Keep digging.",
+    take: "Legacy is just consistent effort over time. Start small, don't stop." },
+  { origin: "Indian / Panchatantra", title: "The Lion and the Mouse",
+    summary: "A lion spares a mouse's life. Later, the mouse gnaws through ropes to free the lion from a hunter's net.",
+    moral: "No act of kindness is ever wasted.",
+    modern: "That small favor you did years ago? It might come back when you need it most.",
+    take: "Be kind to everyone. You never know who's holding the rope that saves you." },
+  { origin: "West African / Anansi", title: "How Anansi Got His Thin Waist",
+    summary: "Anansi is greedy and tries to hoard all the village's food. He ties it around his waist, but it grows so heavy he must keep eating to make room. Eventually his waist becomes permanently thin from the strain.",
+    moral: "Greed consumes the greedy.",
+    modern: "Hoarding — whether money, attention, or credit — eventually costs you more than it gives.",
+    take: "Generosity isn't just moral — it's practical. What flows through you doesn't weigh you down." },
+  { origin: "Japanese", title: "The Crane Wife",
+    summary: "A poor man saves an injured crane. A beautiful woman appears and becomes his wife, weaving exquisite fabric on the condition he never watches her. Curiosity overwhelms him; he discovers she is the crane, plucking her own feathers. She flies away, never to return.",
+    moral: "Trust, once broken, cannot always be repaired.",
+    modern: "Respect boundaries. Some gifts come with conditions that protect the giver.",
+    take: "The people who love you most deserve your trust most. Don't test what you can't afford to lose." },
+  { origin: "Cherokee", title: "The First Strawberries",
+    summary: "A couple argues. The woman leaves in anger. The man pursues her. The Creator, seeing his sincere regret, places sweet strawberries in her path. She stops to eat them, he catches up, and they reconcile.",
+    moral: "Anger fades; love and humility restore what pride breaks.",
+    modern: "Say sorry first. The strawberry is always sweeter than being right.",
+    take: "Pride is expensive. Humility pays dividends in every relationship." },
+  { origin: "Aesop / Greek", title: "The Fox and the Grapes",
+    summary: "A fox tries repeatedly to reach grapes hanging high on a vine. Failing, he walks away saying they were probably sour anyway.",
+    moral: "It is easy to despise what you cannot obtain.",
+    modern: "Don't downgrade your goals just because they're hard to reach. Find a ladder.",
+    take: "Sour grapes is a coping mechanism, not a strategy. If you want it, find another way." },
+  { origin: "Chinese", title: "The Farmer's Luck",
+    summary: "A farmer's horse runs away. 'Bad luck,' say neighbors. 'Maybe,' says the farmer. The horse returns with wild horses. 'Good luck,' say neighbors. 'Maybe,' says the farmer. His son breaks his leg taming one. 'Bad luck,' they say. 'Maybe,' he says. Soldiers arrive to conscript all able men — his son is spared.",
+    moral: "We cannot judge events as simply good or bad.",
+    modern: "The plot twist you didn't see coming might be the best chapter of your story.",
+    take: "Hold your judgments loosely. Life has a way of surprising you." },
+  { origin: "Indian / Panchatantra", title: "The Blue Jackal",
+    summary: "A jackal falls into a vat of blue dye and is mistaken for a divine creature by other animals. He rules them until he howls one night, revealing his true nature. The animals attack him.",
+    moral: "False pretenses will eventually be exposed.",
+    modern: "Be yourself. The energy it takes to maintain a facade is energy stolen from your real growth.",
+    take: "Authenticity is the only sustainable strategy long-term. Everything else unravels." }
+];
+
+function renderFables() {
+  const container = document.getElementById('fablesContainer');
+  container.innerHTML = fables.map((f, i) => `
+    <div class="card fable-card">
+      <span class="fable-origin">${f.origin}</span>
+      <h3>${f.title}</h3>
+      <p>${f.summary}</p>
+      <div class="fable-moral">"${f.moral}"</div>
+      <div class="fable-modern"><strong>For young readers:</strong> ${f.modern}</div>
+      <div class="fable-take"><strong>Founder's Take:</strong> ${f.take}</div>
+    </div>
+  `).join('');
+}
+renderFables();
+
+// ===== Voice Input =====
+function startVoiceInput(targetId) {
+  const el = document.getElementById(targetId);
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Voice input not supported in this browser. Try Chrome or Edge.');
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const rec = new SpeechRecognition();
+  rec.lang = 'en-US';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+  rec.onresult = (e) => {
+    const transcript = e.results[0][0].transcript;
+    el.value = (el.value ? el.value + ' ' : '') + transcript;
+  };
+  rec.onerror = (e) => {
+    if (e.error === 'not-allowed') alert('Microphone permission denied.');
+    else alert('Voice input error: ' + e.error);
+  };
+  rec.start();
+}
+
+// ===== Storage Adapter =====
+const StorageAdapter = {
+  get(key) {
+    try { return JSON.parse(localStorage.getItem(key)); } catch(e) { return null; }
+  },
+  set(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; } catch(e) { return false; }
+  },
+  remove(key) { localStorage.removeItem(key); }
+};
+
+// ===== Journal =====
+const journalPrompts = [
+  "What are you grateful for today?",
+  "What challenged you, and what did you learn?",
+  "Describe a moment you felt truly alive recently.",
+  "What is one small step you can take toward your biggest goal?",
+  "Who made a positive impact on you this week?",
+  "What fear held you back, and how can you face it?",
+  "If your future self wrote you a letter, what would it say?",
+  "What does 'potential' mean to you right now?",
+  "When did you last choose courage over comfort?",
+  "What would you attempt if you knew you could not fail?"
+];
+
+function newJournalPrompt() {
+  const prompt = journalPrompts[Math.floor(Math.random() * journalPrompts.length)];
+  document.getElementById('journalPrompt').textContent = '📝 ' + prompt;
+}
+
+function saveJournalEntry() {
+  const text = document.getElementById('journalEntry').value.trim();
+  if (!text) { alert('Write something first.'); return; }
+  const entries = StorageAdapter.get('deppx_journal') || [];
+  entries.unshift({ date: new Date().toLocaleString(), text, prompt: document.getElementById('journalPrompt').textContent });
+  StorageAdapter.set('deppx_journal', entries);
+  document.getElementById('journalEntry').value = '';
+  renderJournal();
+}
+
+function renderJournal() {
+  const entries = StorageAdapter.get('deppx_journal') || [];
+  const list = document.getElementById('journalList');
+  if (!entries.length) { list.innerHTML = '<p style="opacity:0.5;font-size:0.9rem;">No entries yet.</p>'; return; }
+  list.innerHTML = entries.map(e => `
+    <div class="journal-entry">
+      <div class="journal-entry-date">${e.date}</div>
+      <div style="font-size:0.8rem;opacity:0.6;margin-bottom:0.25rem;">${e.prompt || ''}</div>
+      <div>${e.text.replace(/</g,'&lt;')}</div>
+    </div>
+  `).join('');
+}
+
+newJournalPrompt();
+renderJournal();
+
+// ===== Calculator =====
+let calcExpr = '';
+function calcUpdate() {
+  document.getElementById('calcDisplay').textContent = calcExpr || '0';
+}
+function calcAppend(ch) {
+  calcExpr += ch;
+  calcUpdate();
+}
+function calcClear() {
+  calcExpr = '';
+  calcUpdate();
+}
+function calcBack() {
+  calcExpr = calcExpr.slice(0, -1);
+  calcUpdate();
+}
+function calcEqual() {
+  try {
+    const result = Function('"use strict"; return (' + calcExpr + ')')();
+    calcExpr = String(result).slice(0, 12);
+    calcUpdate();
+  } catch(e) {
+    calcExpr = 'Error';
+    calcUpdate();
+    setTimeout(calcClear, 1000);
+  }
+}
+
+// ===== Song Search =====
+function searchSong() {
+  const q = document.getElementById('songInput').value.trim();
+  if (!q) return;
+  const url = 'https://music.youtube.com/search?q=' + encodeURIComponent(q);
+  window.open(url, '_blank');
+}
+document.getElementById('songInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter') searchSong();
+});
+
+// ===== QR Code =====
+document.getElementById('qrCode').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(window.location.href);
+document.getElementById('qrUrl').textContent = window.location.href;
+
+// ===== News Ticker =====
+async function loadNews() {
+  try {
+    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/rss.xml');
+    const data = await res.json();
+    if (data.items && data.items.length) {
+      const html = data.items.slice(0, 10).map(item =>
+        `<span class="news-ticker-item"><strong>${item.title.replace(/</g,'&lt;')}</strong> — ${item.description.replace(/<[^>]+>/g,'').slice(0,100)}...</span>`
+      ).join('');
+      document.getElementById('newsTickerInner').innerHTML = html;
+    }
+  } catch(e) {
+    document.getElementById('newsTickerInner').innerHTML =
+      '<span class="news-ticker-item"><strong>📰 DEPPX News:</strong> Stay tuned for updates from the community.</span>';
+  }
+}
+loadNews();
+</script>
+
+<!-- ===================== X TRENDING TICKER ===================== -->
+<div class="x-ticker" id="xTicker">
+  <div class="x-ticker-track" id="xTickerTrack">
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">T</div><span class="x-name">TechInsider</span><span class="x-handle">@techinsider</span></div>
+      <div class="x-tweet-text">OpenAI just dropped <strong>GPT-5</strong> and it's reasoning through problems like a PhD candidate. The gap is closing faster than anyone predicted.</div>
+      <div class="x-stats">💬 12.4K · 🔄 45.2K · ❤️ 189K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">S</div><span class="x-name">SpaceX Daily</span><span class="x-handle">@spacexdaily</span></div>
+      <div class="x-tweet-text">Starship just completed its first lunar cargo mission. We are officially a multi-planetary species. <strong>#SpaceX</strong> <strong>#Moon</strong></div>
+      <div class="x-stats">💬 8.7K · 🔄 67.1K · ❤️ 312K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">⚡ Live</div>
+      <div class="x-tweet-header"><div class="x-avatar">A</div><span class="x-name">Apple Hub</span><span class="x-handle">@applehub</span></div>
+      <div class="x-tweet-text">AR contact lens prototype revealed at secret campus event. This changes everything about how we see the world. Literally.</div>
+      <div class="x-stats">💬 22.1K · 🔄 98.3K · ❤️ 445K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">Q</div><span class="x-name">QuantumWatch</span><span class="x-handle">@quantumwatch</span></div>
+      <div class="x-tweet-text">10,000 qubits. We have crossed the threshold. Quantum supremacy is no longer theoretical — it's in a lab right now.</div>
+      <div class="x-stats">💬 5.3K · 🔄 28.9K · ❤️ 156K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🌍 World</div>
+      <div class="x-tweet-header"><div class="x-avatar">E</div><span class="x-name">EU Tech Law</span><span class="x-handle">@eutech</span></div>
+      <div class="x-tweet-text">Comprehensive AI rights framework passes unanimously. The first major government to codify synthetic personhood protections.</div>
+      <div class="x-stats">💬 15.6K · 🔄 52.4K · ❤️ 203K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">💡 Insight</div>
+      <div class="x-tweet-header"><div class="x-avatar">D</div><span class="x-name">DEPPX Official</span><span class="x-handle">@deppx</span></div>
+      <div class="x-tweet-text">Your potential is not a fixed state. It's a variable. And you control the equation. <strong>#DEPPX</strong> <strong>#Potential</strong></div>
+      <div class="x-stats">💬 3.2K · 🔄 18.7K · ❤️ 98K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">M</div><span class="x-name">Mindset Daily</span><span class="x-handle">@mindsetdaily</span></div>
+      <div class="x-tweet-text">The 1% rule: improve by 1% daily and you are 37x better in a year. Most people overestimate what they can do in a day and underestimate a year.</div>
+      <div class="x-stats">💬 9.8K · 🔄 41.2K · ❤️ 267K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🚀 Viral</div>
+      <div class="x-tweet-header"><div class="x-avatar">N</div><span class="x-name">NeuroScience</span><span class="x-handle">@neurofeed</span></div>
+      <div class="x-tweet-text">New study: meditation physically rewires the prefrontal cortex in 8 weeks. The brain you have is not the brain you are stuck with.</div>
+      <div class="x-stats">💬 7.4K · 🔄 33.6K · ❤️ 198K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">C</div><span class="x-name">Catholic Tech</span><span class="x-handle">@catholictech</span></div>
+      <div class="x-tweet-text">Vatican announces digital pilgrimage platform. Faith and technology are not enemies — they are allies in the search for truth.</div>
+      <div class="x-stats">💬 4.1K · 🔄 19.3K · ❤️ 112K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">💡 Insight</div>
+      <div class="x-tweet-header"><div class="x-avatar">W</div><span class="x-name">Wisdom Bot</span><span class="x-handle">@wisdombot</span></div>
+      <div class="x-tweet-text">"The oak does not rush to become tall. It simply grows, ring by ring, storm by storm." — Gaia Sayings <strong>#wisdom</strong></div>
+      <div class="x-stats">💬 2.8K · 🔄 14.5K · ❤️ 87K</div>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">T</div><span class="x-name">TechInsider</span><span class="x-handle">@techinsider</span></div>
+      <div class="x-tweet-text">OpenAI just dropped <strong>GPT-5</strong> and it's reasoning through problems like a PhD candidate. The gap is closing faster than anyone predicted.</div>
+      <div class="x-stats">💬 12.4K · 🔄 45.2K · ❤️ 189K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">S</div><span class="x-name">SpaceX Daily</span><span class="x-handle">@spacexdaily</span></div>
+      <div class="x-tweet-text">Starship just completed its first lunar cargo mission. We are officially a multi-planetary species. <strong>#SpaceX</strong> <strong>#Moon</strong></div>
+      <div class="x-stats">💬 8.7K · 🔄 67.1K · ❤️ 312K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">⚡ Live</div>
+      <div class="x-tweet-header"><div class="x-avatar">A</div><span class="x-name">Apple Hub</span><span class="x-handle">@applehub</span></div>
+      <div class="x-tweet-text">AR contact lens prototype revealed at secret campus event. This changes everything about how we see the world. Literally.</div>
+      <div class="x-stats">💬 22.1K · 🔄 98.3K · ❤️ 445K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">Q</div><span class="x-name">QuantumWatch</span><span class="x-handle">@quantumwatch</span></div>
+      <div class="x-tweet-text">10,000 qubits. We have crossed the threshold. Quantum supremacy is no longer theoretical — it's in a lab right now.</div>
+      <div class="x-stats">💬 5.3K · 🔄 28.9K · ❤️ 156K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🌍 World</div>
+      <div class="x-tweet-header"><div class="x-avatar">E</div><span class="x-name">EU Tech Law</span><span class="x-handle">@eutech</span></div>
+      <div class="x-tweet-text">Comprehensive AI rights framework passes unanimously. The first major government to codify synthetic personhood protections.</div>
+      <div class="x-stats">💬 15.6K · 🔄 52.4K · ❤️ 203K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">💡 Insight</div>
+      <div class="x-tweet-header"><div class="x-avatar">D</div><span class="x-name">DEPPX Official</span><span class="x-handle">@deppx</span></div>
+      <div class="x-tweet-text">Your potential is not a fixed state. It's a variable. And you control the equation. <strong>#DEPPX</strong> <strong>#Potential</strong></div>
+      <div class="x-stats">💬 3.2K · 🔄 18.7K · ❤️ 98K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">M</div><span class="x-name">Mindset Daily</span><span class="x-handle">@mindsetdaily</span></div>
+      <div class="x-tweet-text">The 1% rule: improve by 1% daily and you are 37x better in a year. Most people overestimate what they can do in a day and underestimate a year.</div>
+      <div class="x-stats">💬 9.8K · 🔄 41.2K · ❤️ 267K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🚀 Viral</div>
+      <div class="x-tweet-header"><div class="x-avatar">N</div><span class="x-name">NeuroScience</span><span class="x-handle">@neurofeed</span></div>
+      <div class="x-tweet-text">New study: meditation physically rewires the prefrontal cortex in 8 weeks. The brain you have is not the brain you are stuck with.</div>
+      <div class="x-stats">💬 7.4K · 🔄 33.6K · ❤️ 198K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">🔥 Trending</div>
+      <div class="x-tweet-header"><div class="x-avatar">C</div><span class="x-name">Catholic Tech</span><span class="x-handle">@catholictech</span></div>
+      <div class="x-tweet-text">Vatican announces digital pilgrimage platform. Faith and technology are not enemies — they are allies in the search for truth.</div>
+      <div class="x-stats">💬 4.1K · 🔄 19.3K · ❤️ 112K</div>
+    </div>
+    <div class="x-tweet">
+      <div class="x-badge">💡 Insight</div>
+      <div class="x-tweet-header"><div class="x-avatar">W</div><span class="x-name">Wisdom Bot</span><span class="x-handle">@wisdombot</span></div>
+      <div class="x-tweet-text">"The oak does not rush to become tall. It simply grows, ring by ring, storm by storm." — Gaia Sayings <strong>#wisdom</strong></div>
+      <div class="x-stats">💬 2.8K · 🔄 14.5K · ❤️ 87K</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Swarm Summon Button -->
+<button class="swarm-summon-btn" id="swarmSummonBtn" onclick="openSwarm()" title="Summon 300 Agents">🤖</button>
+
+<!-- Swarm Overlay -->
+<div class="swarm-overlay" id="swarmOverlay">
+  <button class="swarm-close" onclick="closeSwarm()">✕</button>
+  <div class="swarm-hud">
+    <div><strong>🤖 SWARM ACTIVE</strong></div>
+    <div>AGENTS: <span id="swarmAgentCount">300</span></div>
+    <div>ACTIVE: <span id="swarmActiveCount">300</span></div>
+    <div>FPS: <span id="swarmFps">60</span></div>
+  </div>
+  <canvas class="swarm-canvas" id="swarmCanvas"></canvas>
+  <div class="swarm-instructions">
+    Move mouse to attract • Click & drag to scatter • Double-click to reset
+  </div>
+  <button class="swarm-toggle-guide" onclick="toggleSwarmGuide()">📖 How to Use</button>
+  <div class="swarm-guide" id="swarmGuide" style="display:none;">
+    <h4>🤖 What the Swarm Does</h4>
+    <p style="margin-bottom:0.75rem;font-size:0.8rem;opacity:0.8;">The 300 agents are a living meditation. Each dot is an independent decision-maker that flock together like birds, fish, or neurons. They respond to you.</p>
+
+    <strong style="color:var(--gold);font-size:0.8rem;">QUICK START</strong>
+    <ul style="margin-top:0.5rem;">
+      <li><span class="guide-icon">👆</span><strong>Move your cursor</strong> — agents swarm toward you</li>
+      <li><span class="guide-icon">✊</span><strong>Click & hold</strong> — they scatter like startled fish</li>
+      <li><span class="guide-icon">👆👆</span><strong>Double-click</strong> — respawn all 300 randomly</li>
+      <li><span class="guide-icon">🖱️</span><strong>Leave the canvas</strong> — they wander freely</li>
+    </ul>
+
+    <strong style="color:var(--gold);font-size:0.8rem;">3 WAYS TO USE IT</strong>
+    <div class="swarm-ritual">
+      <strong>🧘 Focus Mode</strong><br>
+      Breathe slowly. Move your cursor in a circle. Watch the swarm follow. When your mind wanders, the swarm wanders. Bring it back. Repeat for 2 minutes.
+    </div>
+    <div class="swarm-ritual">
+      <strong>🎯 Decision Helper</strong><br>
+      Think of a yes/no question. Move left for "no," right for "yes." Whichever side the majority of agents settle on first — trust that.
+    </div>
+    <div class="swarm-ritual">
+      <strong>😤 Stress Release</strong><br>
+      Click and drag wildly. Scatter them. Then stop. Watch them regroup and reconnect. So will you.
+    </div>
+
+    <strong style="color:var(--gold);font-size:0.8rem;display:block;margin-top:1rem;">AGENT TYPES</strong>
+    <ul style="margin-top:0.5rem;font-size:0.75rem;">
+      <li><span style="color:#00f0ff">●</span> Scouts — fast explorers</li>
+      <li><span style="color:#ff3366">●</span> Guards — steady protectors</li>
+      <li><span style="color:#00ff88">●</span> Builders — slow constructors</li>
+      <li><span style="color:#ffaa00">●</span> Gatherers — balanced scouts</li>
+      <li><span style="color:#cc66ff">●</span> Relays — speedy messengers</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+function openBusinessPortal() {
+  const w = window.open('portal.html', 'deppxPortal', 'width=1000,height=700,resizable=yes,scrollbars=yes');
+  if (!w) {
+    alert('Pop-up blocked! Please allow pop-ups for DEPPX to open the Business Portal.');
+  }
+}
+
+function openAccounting() {
+  const w = window.open('accounting.html', 'deppxAccounting', 'width=1200,height=800,resizable=yes,scrollbars=yes');
+  if (!w) {
+    alert('Pop-up blocked! Please allow pop-ups for DEPPX to open DeppX Accounting.');
+  }
+}
+
+// ===== SWARM OF 300 AGENTS =====
+let swarmCtx = null;
+let swarmCanvas = null;
+let swarmAnimId = null;
+let swarmRunning = false;
+
+function openSwarm() {
+  document.getElementById('swarmOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  initSwarm();
+}
+
+function toggleSwarmGuide() {
+  const guide = document.getElementById('swarmGuide');
+  guide.style.display = guide.style.display === 'none' ? 'block' : 'none';
+}
+
+function closeSwarm() {
+  document.getElementById('swarmOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  swarmRunning = false;
+  if (swarmAnimId) cancelAnimationFrame(swarmAnimId);
+}
+
+function initSwarm() {
+  if (swarmRunning) return;
+  swarmRunning = true;
+
+  swarmCanvas = document.getElementById('swarmCanvas');
+  swarmCtx = swarmCanvas.getContext('2d');
+
+  function resizeSwarm() {
+    swarmCanvas.width = window.innerWidth;
+    swarmCanvas.height = window.innerHeight;
+  }
+  resizeSwarm();
+  window.addEventListener('resize', resizeSwarm);
+
+  const AGENT_COUNT = 300;
+  const agents = [];
+  let mouse = { x: -1000, y: -1000, active: false, dragging: false };
+  let lastTime = performance.now();
+  let frameCount = 0;
+  let fps = 60;
+
+  const AGENT_TYPES = [
+    { name: 'Scout', color: '#00f0ff', speed: 2.5, size: 2.5, role: 'Explorer' },
+    { name: 'Guard', color: '#ff3366', speed: 1.8, size: 3.5, role: 'Protector' },
+    { name: 'Builder', color: '#00ff88', speed: 1.2, size: 3, role: 'Constructor' },
+    { name: 'Scout', color: '#ffaa00', speed: 2.0, size: 2.8, role: 'Gatherer' },
+    { name: 'Relay', color: '#cc66ff', speed: 3.0, size: 2, role: 'Messenger' }
+  ];
+
+  class Agent {
+    constructor(id) {
+      this.id = id;
+      const type = AGENT_TYPES[Math.floor(Math.random() * AGENT_TYPES.length)];
+      this.type = type.name;
+      this.color = type.color;
+      this.baseSpeed = type.speed;
+      this.size = type.size;
+      this.role = type.role;
+      this.x = Math.random() * swarmCanvas.width;
+      this.y = Math.random() * swarmCanvas.height;
+      this.vx = (Math.random() - 0.5) * this.baseSpeed;
+      this.vy = (Math.random() - 0.5) * this.baseSpeed;
+      this.energy = 50 + Math.random() * 50;
+      this.maxEnergy = 100;
+      this.state = 'wandering';
+      this.pulse = Math.random() * Math.PI * 2;
+      this.trail = [];
+      this.maxTrail = 8;
+    }
+
+    update() {
+      this.pulse += 0.05;
+
+      if (mouse.active) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (mouse.dragging) {
+          if (dist < 150) {
+            const force = (150 - dist) / 150 * 0.8;
+            this.vx -= (dx / dist) * force;
+            this.vy -= (dy / dist) * force;
+            this.state = 'fleeing';
+          }
+        } else {
+          if (dist < 200) {
+            const force = (200 - dist) / 200 * 0.15;
+            this.vx += (dx / dist) * force;
+            this.vy += (dy / dist) * force;
+            this.state = 'seeking';
+          }
+        }
+      }
+
+      let sepX = 0, sepY = 0, alignX = 0, alignY = 0, cohX = 0, cohY = 0;
+      let neighbors = 0;
+
+      for (let other of agents) {
+        if (other === this) continue;
+        const dx = other.x - this.x;
+        const dy = other.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 40 && dist > 0) {
+          sepX -= dx / dist;
+          sepY -= dy / dist;
+          alignX += other.vx;
+          alignY += other.vy;
+          cohX += other.x;
+          cohY += other.y;
+          neighbors++;
+        }
+      }
+
+      if (neighbors > 0) {
+        sepX /= neighbors;
+        sepY /= neighbors;
+        alignX = (alignX / neighbors - this.vx) * 0.05;
+        alignY = (alignY / neighbors - this.vy) * 0.05;
+        cohX = (cohX / neighbors - this.x) * 0.005;
+        cohY = (cohY / neighbors - this.y) * 0.005;
+
+        this.vx += sepX * 0.5 + alignX + cohX;
+        this.vy += sepY * 0.5 + alignY + cohY;
+      }
+
+      const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+      if (speed > this.baseSpeed) {
+        this.vx = (this.vx / speed) * this.baseSpeed;
+        this.vy = (this.vy / speed) * this.baseSpeed;
+      }
+      this.x += this.vx;
+      this.y += this.vy;
+
+      this.trail.push({ x: this.x, y: this.y });
+      if (this.trail.length > this.maxTrail) this.trail.shift();
+
+      if (this.x < 0) this.x = swarmCanvas.width;
+      if (this.x > swarmCanvas.width) this.x = 0;
+      if (this.y < 0) this.y = swarmCanvas.height;
+      if (this.y > swarmCanvas.height) this.y = 0;
+
+      this.energy -= 0.02;
+      if (this.energy < 20) {
+        this.state = 'resting';
+        this.vx *= 0.95;
+        this.vy *= 0.95;
+      }
+      if (this.energy < 0) this.energy = this.maxEnergy;
+
+      if (!mouse.active && speed < 0.1) this.state = 'wandering';
+    }
+
+    draw() {
+      for (let i = 0; i < this.trail.length; i++) {
+        const t = this.trail[i];
+        const alpha = (i / this.trail.length) * 0.3;
+        swarmCtx.beginPath();
+        swarmCtx.arc(t.x, t.y, this.size * (i / this.trail.length) * 0.5, 0, Math.PI * 2);
+        swarmCtx.fillStyle = this.color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+        swarmCtx.fill();
+      }
+
+      const glowSize = this.size * 3 + Math.sin(this.pulse) * 2;
+      const gradient = swarmCtx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
+      gradient.addColorStop(0, this.color + '88');
+      gradient.addColorStop(1, this.color + '00');
+      swarmCtx.beginPath();
+      swarmCtx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
+      swarmCtx.fillStyle = gradient;
+      swarmCtx.fill();
+
+      swarmCtx.beginPath();
+      swarmCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      swarmCtx.fillStyle = this.color;
+      swarmCtx.fill();
+
+      if (this.state !== 'wandering' && this.state !== 'resting') {
+        swarmCtx.beginPath();
+        swarmCtx.arc(this.x, this.y, this.size + 3 + Math.sin(this.pulse * 2) * 1, 0, Math.PI * 2);
+        swarmCtx.strokeStyle = this.color + 'aa';
+        swarmCtx.lineWidth = 1;
+        swarmCtx.stroke();
+      }
+    }
+
+    distanceTo(other) {
+      const dx = this.x - other.x;
+      const dy = this.y - other.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+  }
+
+  for (let i = 0; i < AGENT_COUNT; i++) {
+    agents.push(new Agent(i + 1));
+  }
+
+  function drawConnections() {
+    for (let i = 0; i < agents.length; i++) {
+      let connections = 0;
+      for (let j = i + 1; j < agents.length && connections < 3; j++) {
+        const dist = agents[i].distanceTo(agents[j]);
+        if (dist < 60) {
+          const alpha = (1 - dist / 60) * 0.25;
+          swarmCtx.beginPath();
+          swarmCtx.moveTo(agents[i].x, agents[i].y);
+          swarmCtx.lineTo(agents[j].x, agents[j].y);
+          swarmCtx.strokeStyle = agents[i].color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+          swarmCtx.lineWidth = 0.5;
+          swarmCtx.stroke();
+          connections++;
+        }
+      }
+    }
+  }
+
+  swarmCanvas.addEventListener('mousemove', (e) => {
+    const rect = swarmCanvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  });
+
+  swarmCanvas.addEventListener('mousedown', () => { mouse.dragging = true; });
+  swarmCanvas.addEventListener('mouseup', () => { mouse.dragging = false; });
+  swarmCanvas.addEventListener('mouseleave', () => {
+    mouse.active = false;
+    mouse.dragging = false;
+  });
+
+  swarmCanvas.addEventListener('dblclick', () => {
+    agents.forEach(a => {
+      a.x = Math.random() * swarmCanvas.width;
+      a.y = Math.random() * swarmCanvas.height;
+      a.vx = (Math.random() - 0.5) * a.baseSpeed;
+      a.vy = (Math.random() - 0.5) * a.baseSpeed;
+      a.trail = [];
+    });
+  });
+
+  function animateSwarm() {
+    if (!swarmRunning) return;
+    const now = performance.now();
+    frameCount++;
+    if (now - lastTime >= 1000) {
+      fps = frameCount;
+      frameCount = 0;
+      lastTime = now;
+      document.getElementById('swarmFps').textContent = fps;
+    }
+
+    swarmCtx.fillStyle = 'rgba(13, 5, 24, 0.25)';
+    swarmCtx.fillRect(0, 0, swarmCanvas.width, swarmCanvas.height);
+
+    drawConnections();
+
+    agents.forEach(agent => {
+      agent.update();
+      agent.draw();
+    });
+
+    swarmAnimId = requestAnimationFrame(animateSwarm);
+  }
+
+  animateSwarm();
+}
+</script>
+
+</body>
+</html>

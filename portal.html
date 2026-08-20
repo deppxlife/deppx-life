@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEPPX Business Swarm Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #0a0215;
+  --dusk: #1a0a30;
+  --horizon: #5a2f8a;
+  --gold: #c9a0ff;
+  --sage: #7dd3c0;
+  --mist: #d4c8e8;
+  --paper: #f0ebf5;
+  --bot-biz: #00f0ff;
+  --bot-brand: #ff6b9d;
+  --bot-money: #ffd93d;
+  --bot-grow: #6bcb77;
+  --bot-tech: #b967ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  background: var(--void);
+  color: var(--mist);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Swarm Background */
+#swarmBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Layout */
+.portal-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* Header */
+.portal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.portal-header h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  background: linear-gradient(135deg, var(--gold), var(--sage));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.portal-header p {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+.portal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(180,140,255,0.1);
+  border: 1px solid rgba(180,140,255,0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+/* Bot Selector */
+.bot-bar {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+.bot-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.bot-chip:hover, .bot-chip.active {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-2px);
+}
+.bot-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* Chat Area */
+.chat-area {
+  background: rgba(20,8,35,0.8);
+  border: 1px solid rgba(180,140,255,0.12);
+  border-radius: 20px;
+  padding: 1.5rem;
+  min-height: 300px;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+.chat-msg {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  animation: msgIn 0.4s ease;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  border: 2px solid;
+}
+.chat-bubble {
+  background: rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 85%;
+}
+.chat-bubble strong {
+  color: var(--paper);
+}
+.chat-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.typing-dots {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.5rem 0;
+}
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* Wizard Steps */
+.wizard-step {
+  display: none;
+}
+.wizard-step.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.wizard-step h3 {
+  font-family: 'Fraunces', serif;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+.option-card {
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.option-card:hover {
+  border-color: var(--gold);
+  background: rgba(180,140,255,0.06);
+  transform: translateY(-2px);
+}
+.option-card.selected {
+  border-color: var(--sage);
+  background: rgba(125,211,192,0.08);
+}
+.option-card .emoji {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.option-card h4 {
+  color: var(--paper);
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+.option-card p {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* Input */
+.portal-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  color: var(--paper);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  margin: 0.5rem 0 1rem;
+  transition: border-color 0.2s;
+}
+.portal-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+/* Buttons */
+.portal-btn {
+  padding: 0.85rem 2rem;
+  border-radius: 12px;
+  border: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--horizon), var(--gold));
+  color: var(--void);
+}
+.btn-gold:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+}
+.btn-ghost:hover { background: rgba(180,140,255,0.1); }
+
+/* Plan Output */
+.plan-output {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(180,140,255,0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+.plan-output h4 {
+  color: var(--sage);
+  font-family: 'Fraunces', serif;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+.plan-output ul {
+  list-style: none;
+  padding: 0;
+  font-size: 0.9rem;
+}
+.plan-output li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  gap: 0.5rem;
+}
+.plan-output li:last-child { border-bottom: none; }
+.plan-tag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Tool Links */
+.tool-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.tool-link {
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  background: rgba(180,140,255,0.08);
+  border: 1px solid rgba(180,140,255,0.15);
+  color: var(--gold);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.tool-link:hover {
+  background: rgba(180,140,255,0.2);
+  transform: translateY(-1px);
+}
+
+/* Saved Plans */
+.saved-plans {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.saved-plans h3 {
+  color: var(--gold);
+  font-family: 'Fraunces', serif;
+  margin-bottom: 1rem;
+}
+.plan-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plan-card-title {
+  font-weight: 600;
+  color: var(--paper);
+  font-size: 0.9rem;
+}
+.plan-card-date {
+  font-size: 0.75rem;
+  opacity: 0.5;
+}
+
+/* Close portal */
+.portal-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--mist);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.portal-close:hover {
+  background: rgba(255,100,100,0.2);
+  color: #ff6b6b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .portal-wrap { padding: 1.5rem 1rem 3rem; }
+  .option-grid { grid-template-columns: 1fr; }
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: var(--horizon); border-radius: 3px; }
+</style>
+</head>
+<body>
+<canvas id="swarmBg"></canvas>
+
+<button class="portal-close" onclick="window.close()" title="Close Portal">✕</button>
+
+<div class="portal-wrap">
+  <div class="portal-header">
+    <div class="portal-badge">🤖 5 Agents Online</div>
+    <h1>Business Swarm Portal</h1>
+    <p>Your DEPPX agents collaborate to turn ideas into income. No coding. No budget. Just answers.</p>
+  </div>
+
+  <div class="bot-bar">
+    <div class="bot-chip active" data-bot="biz" onclick="setBot('biz')">
+      <span class="bot-dot" style="background:var(--bot-biz)"></span> BizBot
+    </div>
+    <div class="bot-chip" data-bot="brand" onclick="setBot('brand')">
+      <span class="bot-dot" style="background:var(--bot-brand)"></span> BrandBot
+    </div>
+    <div class="bot-chip" data-bot="money" onclick="setBot('money')">
+      <span class="bot-dot" style="background:var(--bot-money)"></span> MoneyBot
+    </div>
+    <div class="bot-chip" data-bot="grow" onclick="setBot('grow')">
+      <span class="bot-dot" style="background:var(--bot-grow)"></span> GrowBot
+    </div>
+    <div class="bot-chip" data-bot="tech" onclick="setBot('tech')">
+      <span class="bot-dot" style="background:var(--bot-tech)"></span> TechBot
+    </div>
+  </div>
+
+  <div class="chat-area" id="chatArea">
+    <div class="chat-msg" id="welcomeMsg">
+      <div class="chat-avatar" style="border-color:var(--bot-biz);background:rgba(0,240,255,0.1)">🧠</div>
+      <div>
+        <div class="chat-name" style="color:var(--bot-biz)">BizBot</div>
+        <div class="chat-bubble">Welcome to the Business Swarm. I am BizBot — your strategist. Tell me: <strong>What problem do you want to solve, or what skill do you have that others need?</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 1: Idea -->
+  <div class="wizard-step active" id="step1">
+    <h3>Step 1: Your Idea</h3>
+    <input type="text" class="portal-input" id="ideaInput" placeholder="e.g., I teach guitar to beginners, or I make digital planners...">
+    <div style="text-align:center;">
+      <button class="portal-btn btn-gold" onclick="submitIdea()">Send to Swarm →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Business Type -->
+  <div class="wizard-step" id="step2">
+    <h3>Step 2: What type of business?</h3>
+    <div class="option-grid">
+      <div class="option-card" onclick="selectType(this, 'service')">
+        <span class="emoji">🛎️</span>
+        <h4>Service</h4>
+        <p>You do the work for clients</p>
+      </div>
+      <div class="option-card" onclick="selectType(this, 'digital')">
+        <span class="emoji">📦</span>
+        <h4>Digital Product</h4>
+        <p>Create once, sell forever</p>
+      </div>
+      <div class="option-card" onclick="selectType(this, 'content')">
+        <span class="emoji">🎥</span>
+        <h4>Content / Audience</h4>
+        <p>Build a following, monetize</p>
+      </div>
+      <div class="option-card" onclick="selectType(this, 'resell')">
+        <span class="emoji">🔄</span>
+        <h4>Resell / Flip</h4>
+        <p>Buy low, sell high</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Audience -->
+  <div class="wizard-step" id="step3">
+    <h3>Step 3: Who is your audience?</h3>
+    <div class="option-grid">
+      <div class="option-card" onclick="selectAudience(this, 'beginners')">
+        <span class="emoji">🌱</span>
+        <h4>Beginners</h4>
+        <p>People just starting out</p>
+      </div>
+      <div class="option-card" onclick="selectAudience(this, 'busy')">
+        <span class="emoji">⚡</span>
+        <h4>Busy Professionals</h4>
+        <p>Time-poor, money-ready</p>
+      </div>
+      <div class="option-card" onclick="selectAudience(this, 'creative')">
+        <span class="emoji">🎨</span>
+        <h4>Creatives</h4>
+        <p>Artists, makers, dreamers</p>
+      </div>
+      <div class="option-card" onclick="selectAudience(this, 'parents')">
+        <span class="emoji">👨‍👩‍👧</span>
+        <h4>Parents / Families</h4>
+        <p>Household decision-makers</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Price -->
+  <div class="wizard-step" id="step4">
+    <h3>Step 4: Price range?</h3>
+    <div class="option-grid">
+      <div class="option-card" onclick="selectPrice(this, 'low')">
+        <span class="emoji">💚</span>
+        <h4>$5 – $50</h4>
+        <p>Impulse buy territory</p>
+      </div>
+      <div class="option-card" onclick="selectPrice(this, 'mid')">
+        <span class="emoji">💙</span>
+        <h4>$50 – $500</h4>
+        <p>Considered purchase</p>
+      </div>
+      <div class="option-card" onclick="selectPrice(this, 'high')">
+        <span class="emoji">💜</span>
+        <h4>$500+</h4>
+        <p>Premium / high-ticket</p>
+      </div>
+      <div class="option-card" onclick="selectPrice(this, 'free')">
+        <span class="emoji">🎁</span>
+        <h4>Free → Upsell</h4>
+        <p>Lead magnet model</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5: Generate -->
+  <div class="wizard-step" id="step5">
+    <div style="text-align:center;padding:2rem;">
+      <div class="typing-dots" style="justify-content:center;"><span></span><span></span><span></span></div>
+      <p style="margin-top:1rem;opacity:0.7;">The Swarm is collaborating on your plan...</p>
+    </div>
+  </div>
+
+  <!-- Step 6: Result -->
+  <div class="wizard-step" id="step6">
+    <h3>🎯 Your Swarm-Crafted Plan</h3>
+    <div id="planResult"></div>
+    <div style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
+      <button class="portal-btn btn-gold" onclick="copyPlan()">📋 Copy Plan</button>
+      <button class="portal-btn btn-ghost" onclick="savePlan()">💾 Save to Vault</button>
+      <button class="portal-btn btn-ghost" onclick="resetPortal()">🔄 New Idea</button>
+    </div>
+  </div>
+
+  <!-- Saved Plans -->
+  <div class="saved-plans" id="savedPlansSection" style="display:none;">
+    <h3>📚 Your Saved Plans</h3>
+    <div id="savedPlansList"></div>
+  </div>
+</div>
+
+<script>
+// ===== Background Swarm =====
+const bgCanvas = document.getElementById('swarmBg');
+const bgCtx = bgCanvas.getContext('2d');
+let bgW, bgH;
+function resizeBg() { bgW = bgCanvas.width = window.innerWidth; bgH = bgCanvas.height = window.innerHeight; }
+resizeBg(); window.addEventListener('resize', resizeBg);
+
+const bgParticles = Array.from({length: 60}, () => ({
+  x: Math.random() * window.innerWidth,
+  y: Math.random() * window.innerHeight,
+  vx: (Math.random() - 0.5) * 0.5,
+  vy: (Math.random() - 0.5) * 0.5,
+  size: Math.random() * 2 + 1,
+  color: ['#00f0ff','#ff6b9d','#ffd93d','#6bcb77','#b967ff'][Math.floor(Math.random()*5)]
+}));
+
+function animateBg() {
+  bgCtx.fillStyle = 'rgba(10,2,21,0.15)';
+  bgCtx.fillRect(0,0,bgW,bgH);
+  bgParticles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0) p.x=bgW; if(p.x>bgW) p.x=0;
+    if(p.y<0) p.y=bgH; if(p.y>bgH) p.y=0;
+    bgCtx.beginPath();
+    bgCtx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    bgCtx.fillStyle = p.color + '44';
+    bgCtx.fill();
+  });
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+// ===== Bot Logic =====
+const bots = {
+  biz: { name: 'BizBot', color: '#00f0ff', icon: '🧠', role: 'Strategist' },
+  brand: { name: 'BrandBot', color: '#ff6b9d', icon: '🎨', role: 'Brand Designer' },
+  money: { name: 'MoneyBot', color: '#ffd93d', icon: '💰', role: 'Monetization' },
+  grow: { name: 'GrowBot', color: '#6bcb77', icon: '🚀', role: 'Growth Hacker' },
+  tech: { name: 'TechBot', color: '#b967ff', icon: '⚙️', role: 'Tech Stack' }
+};
+
+let currentBot = 'biz';
+let userData = { idea: '', type: '', audience: '', price: '' };
+
+function setBot(bot) {
+  currentBot = bot;
+  document.querySelectorAll('.bot-chip').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[data-bot="${bot}"]`).classList.add('active');
+}
+
+function addMsg(botKey, text, delay = 0) {
+  const b = bots[botKey];
+  const chat = document.getElementById('chatArea');
+  const typing = document.createElement('div');
+  typing.className = 'chat-msg';
+  typing.innerHTML = `<div class="chat-avatar" style="border-color:${b.color};background:${b.color}11">${b.icon}</div><div class="typing-dots"><span style="background:${b.color}"></span><span style="background:${b.color}"></span><span style="background:${b.color}"></span></div>`;
+  chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
+
+  setTimeout(() => {
+    typing.remove();
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg';
+    msg.innerHTML = `
+      <div class="chat-avatar" style="border-color:${b.color};background:${b.color}11">${b.icon}</div>
+      <div>
+        <div class="chat-name" style="color:${b.color}">${b.name}</div>
+        <div class="chat-bubble">${text}</div>
+      </div>`;
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+  }, delay || 800 + Math.random() * 600);
+}
+
+function showStep(n) {
+  document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+}
+
+function submitIdea() {
+  const val = document.getElementById('ideaInput').value.trim();
+  if (!val) return alert('Share your idea first!');
+  userData.idea = val;
+  addMsg('biz', `Got it: "${val}". Interesting. Let me call in the team.`, 0);
+  setTimeout(() => addMsg('brand', 'I am already seeing colors and vibes for this. Let us lock in the business model first.', 1200), 500);
+  setTimeout(() => showStep(2), 2500);
+}
+
+function selectType(el, type) {
+  userData.type = type;
+  document.querySelectorAll('#step2 .option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const responses = {
+    service: 'Services are the fastest path to cash. You trade time for money, but you validate demand immediately.',
+    digital: 'Digital products scale. Create once, sell while you sleep. Higher upfront effort, infinite upside.',
+    content: 'The audience model is a long game, but the most defensible. Own the attention, own the income.',
+    resell: 'Reselling teaches you markets, margins, and demand. Perfect if you have an eye for value.'
+  };
+  addMsg('money', responses[type], 300);
+  setTimeout(() => addMsg('grow', 'Now — who exactly are we helping? Be specific. "Everyone" is a trap.', 1500), 800);
+  setTimeout(() => showStep(3), 3000);
+}
+
+function selectAudience(el, aud) {
+  userData.audience = aud;
+  document.querySelectorAll('#step3 .option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  const responses = {
+    beginners: 'Beginners are hungry, coachable, and numerous. They need hand-holding, but they pay for clarity.',
+    busy: 'Busy professionals pay premium prices to save time. Efficiency is your value proposition.',
+    creative: 'Creatives buy tools, templates, and inspiration. Sell them time and creative energy back.',
+    parents: 'Parents spend on what saves time, educates, or entertains their kids. Emotional buyers.'
+  };
+  addMsg('brand', responses[aud], 300);
+  setTimeout(() => addMsg('money', 'Let us talk pricing. What tier feels right for this audience?', 1500), 800);
+  setTimeout(() => showStep(4), 3000);
+}
+
+function selectPrice(el, price) {
+  userData.price = price;
+  document.querySelectorAll('#step4 .option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  addMsg('money', 'Price locked. The Swarm is now generating your complete business plan...', 300);
+  showStep(5);
+  setTimeout(generatePlan, 2500);
+}
+
+function generatePlan() {
+  const plans = generateBusinessPlan(userData);
+  const html = `
+    <div class="plan-output">
+      <h4>🎯 Business Model</h4>
+      <ul>${plans.model.map(i => `<li><span>▸</span> ${i}</li>`).join('')}</ul>
+    </div>
+    <div class="plan-output">
+      <h4>🛠️ Action Steps (First 30 Days)</h4>
+      <ul>${plans.actions.map(i => `<li><span>▸</span> ${i}</li>`).join('')}</ul>
+    </div>
+    <div class="plan-output">
+      <h4>🧰 Recommended Free Tools</h4>
+      <div class="tool-row">${plans.tools.map(t => `<a href="${t.url}" target="_blank" rel="noopener" class="tool-link">${t.name}</a>`).join('')}</div>
+    </div>
+    <div class="plan-output">
+      <h4>💰 Monetization Strategy</h4>
+      <ul>${plans.monetize.map(i => `<li><span>▸</span> ${i}</li>`).join('')}</ul>
+    </div>
+    <div class="plan-output">
+      <h4>🚀 Growth Hack (Week 1)</h4>
+      <ul>${plans.growth.map(i => `<li><span>▸</span> ${i}</li>`).join('')}</ul>
+    </div>
+  `;
+  document.getElementById('planResult').innerHTML = html;
+  showStep(6);
+  addMsg('biz', 'Your plan is ready. This is not theory — every step above can be done today with $0. Start with Step 1.', 500);
+  renderSavedPlans();
+}
+
+function generateBusinessPlan(data) {
+  const { idea, type, audience, price } = data;
+  const plans = {
+    model: [], actions: [], tools: [], monetize: [], growth: []
+  };
+
+  // Model
+  if (type === 'service') {
+    plans.model.push(`Offer <strong>${idea}</strong> as a done-for-you service.`);
+    plans.model.push(`Package it into 3 tiers: Starter ($${price==='low'?'50':price==='mid'?'200':'1,000'}), Growth, Premium.`);
+    plans.model.push(`Deliver via video calls, async work, or recorded tutorials.`);
+  } else if (type === 'digital') {
+    plans.model.push(`Turn <strong>${idea}</strong> into a digital product: template, ebook, course, or Notion dashboard.`);
+    plans.model.push(`Sell on Gumroad, Payhip, or Stan Store.`);
+    plans.model.push(`Price at $${price==='low'?'15-35':price==='mid'?'75-250':'500+'} based on depth.`);
+  } else if (type === 'content') {
+    plans.model.push(`Build a content engine around <strong>${idea}</strong> on TikTok + Instagram.`);
+    plans.model.push(`Monetize via sponsorships, affiliate links, and a paid newsletter.`);
+    plans.model.push(`Eventually launch a digital product to the warm audience.`);
+  } else {
+    plans.model.push(`Source undervalued <strong>${idea}</strong> from Facebook Marketplace, thrift stores, or AliExpress.`);
+    plans.model.push(`Clean, photograph, and resell on eBay, Poshmark, or local marketplaces.`);
+    plans.model.push(`Reinvest profits into higher-margin inventory.`);
+  }
+
+  // Actions
+  plans.actions.push(`Day 1-3: Validate demand — post about your offer in 3 relevant online communities.`);
+  plans.actions.push(`Day 4-7: Build your minimum viable offer (landing page, simple pitch, payment link).`);
+  plans.actions.push(`Day 8-14: Get 3 paying customers or 100 engaged followers (whichever fits your model).`);
+  plans.actions.push(`Day 15-21: Collect testimonials or feedback. Iterate based on what they say.`);
+  plans.actions.push(`Day 22-30: Systematize — create templates, SOPs, or content batching workflows.`);
+
+  // Tools
+  plans.tools = [
+    {name:'Gumroad',url:'https://gumroad.com'},{name:'Calendly',url:'https://calendly.com'},
+    {name:'Canva',url:'https://canva.com'},{name:'Notion',url:'https://notion.so'},
+    {name:'TikTok',url:'https://tiktok.com'},{name:'Carrd',url:'https://carrd.co'},
+    {name:'Beehiiv',url:'https://beehiiv.com'},{name:'PayPal',url:'https://paypal.com'}
+  ];
+
+  // Monetize
+  if (price === 'free') {
+    plans.monetize.push(`Give away a high-value freebie (checklist, mini-course, template) to build email list.`);
+    plans.monetize.push(`Nurture list for 2 weeks with value, then pitch your paid offer.`);
+    plans.monetize.push(`Conversion target: 2-5% of list becomes paying customers.`);
+  } else if (price === 'low') {
+    plans.monetize.push(`Price for impulse buys. Volume is your game.`);
+    plans.monetize.push(`Upsell a higher-ticket offer after first purchase (order bump).`);
+    plans.monetize.push(`Target: 100 sales in 60 days = $${100 * (type==='digital'?25:35)} revenue.`);
+  } else if (price === 'mid') {
+    plans.monetize.push(`Position as a premium solution. Case studies and social proof are essential.`);
+    plans.monetize.push(`Offer payment plans to reduce friction.`);
+    plans.monetize.push(`Target: 20 clients in 90 days = $${20 * 200} revenue.`);
+  } else {
+    plans.monetize.push(`High-ticket requires trust. Offer a free strategy call first.`);
+    plans.monetize.push(`Use application forms to qualify leads (scarcity = perceived value).`);
+    plans.monetize.push(`Target: 5 clients at $1,000+ = $5,000+ revenue.`);
+  }
+
+  // Growth
+  plans.growth.push(`Post one piece of content daily for 30 days. No exceptions.`);
+  plans.growth.push(`Engage 30 minutes daily in 2 communities where your audience hangs out.`);
+  plans.growth.push(`DM 5 new people daily. Not selling — just helping and connecting.`);
+  plans.growth.push(`Repurpose everything: one video becomes a post, a thread, an email, a reel.`);
+
+  return plans;
+}
+
+function copyPlan() {
+  const text = document.getElementById('planResult').innerText;
+  navigator.clipboard.writeText(text).then(() => alert('Plan copied!'));
+}
+
+function savePlan() {
+  const plans = JSON.parse(localStorage.getItem('deppx_plans') || '[]');
+  plans.unshift({
+    title: userData.idea,
+    date: new Date().toLocaleDateString(),
+    data: userData,
+    html: document.getElementById('planResult').innerHTML
+  });
+  localStorage.setItem('deppx_plans', JSON.stringify(plans));
+  alert('Saved to your Business Vault!');
+  renderSavedPlans();
+}
+
+function renderSavedPlans() {
+  const plans = JSON.parse(localStorage.getItem('deppx_plans') || '[]');
+  if (!plans.length) return;
+  document.getElementById('savedPlansSection').style.display = 'block';
+  document.getElementById('savedPlansList').innerHTML = plans.map((p, i) => `
+    <div class="plan-card">
+      <div>
+        <div class="plan-card-title">${p.title}</div>
+        <div class="plan-card-date">${p.date} · ${p.data.type} · ${p.data.price}</div>
+      </div>
+      <button class="portal-btn btn-ghost" style="padding:0.4rem 0.8rem;font-size:0.8rem;" onclick="loadPlan(${i})">Load</button>
+    </div>
+  `).join('');
+}
+
+function loadPlan(idx) {
+  const plans = JSON.parse(localStorage.getItem('deppx_plans') || '[]');
+  const p = plans[idx];
+  userData = p.data;
+  document.getElementById('planResult').innerHTML = p.html;
+  showStep(6);
+}
+
+function resetPortal() {
+  userData = { idea: '', type: '', audience: '', price: '' };
+  document.getElementById('ideaInput').value = '';
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('chatArea').innerHTML = `
+    <div class="chat-msg">
+      <div class="chat-avatar" style="border-color:var(--bot-biz);background:rgba(0,240,255,0.1)">🧠</div>
+      <div>
+        <div class="chat-name" style="color:var(--bot-biz)">BizBot</div>
+        <div class="chat-bubble">New session started. What is your next idea?</div>
+      </div>
+    </div>
+  `;
+  showStep(1);
+}
+
+renderSavedPlans();
+</script>
+</body>
+</html>
